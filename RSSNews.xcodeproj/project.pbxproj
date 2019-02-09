@@ -15,6 +15,9 @@
 		CEF178C2220ED99A00332E84 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CEF178C0220ED99A00332E84 /* LaunchScreen.storyboard */; };
 		CEF178CD220ED99A00332E84 /* RSSNewsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEF178CC220ED99A00332E84 /* RSSNewsTests.swift */; };
 		CEF178D8220ED99A00332E84 /* RSSNewsUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEF178D7220ED99A00332E84 /* RSSNewsUITests.swift */; };
+		CEF178E7220ED9D500332E84 /* news.plist in Resources */ = {isa = PBXBuildFile; fileRef = CEF178E6220ED9D500332E84 /* news.plist */; };
+		CEF178EB220EDA5500332E84 /* RSSTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEF178E9220EDA5500332E84 /* RSSTableViewCell.swift */; };
+		CEF178EC220EDA5500332E84 /* RSSTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = CEF178EA220EDA5500332E84 /* RSSTableViewCell.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -49,6 +52,9 @@
 		CEF178D3220ED99A00332E84 /* RSSNewsUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = RSSNewsUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		CEF178D7220ED99A00332E84 /* RSSNewsUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RSSNewsUITests.swift; sourceTree = "<group>"; };
 		CEF178D9220ED99A00332E84 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		CEF178E6220ED9D500332E84 /* news.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = news.plist; sourceTree = "<group>"; };
+		CEF178E9220EDA5500332E84 /* RSSTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RSSTableViewCell.swift; sourceTree = "<group>"; };
+		CEF178EA220EDA5500332E84 /* RSSTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RSSTableViewCell.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -99,6 +105,8 @@
 		CEF178B3220ED99800332E84 /* RSSNews */ = {
 			isa = PBXGroup;
 			children = (
+				CEF178E8220EDA3A00332E84 /* Presentation */,
+				CEF178E5220ED9B100332E84 /* Resources */,
 				CEF178B4220ED99800332E84 /* AppDelegate.swift */,
 				CEF178B6220ED99800332E84 /* ViewController.swift */,
 				CEF178B8220ED99800332E84 /* Main.storyboard */,
@@ -126,6 +134,23 @@
 				CEF178D9220ED99A00332E84 /* Info.plist */,
 			);
 			path = RSSNewsUITests;
+			sourceTree = "<group>";
+		};
+		CEF178E5220ED9B100332E84 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				CEF178E6220ED9D500332E84 /* news.plist */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		CEF178E8220EDA3A00332E84 /* Presentation */ = {
+			isa = PBXGroup;
+			children = (
+				CEF178E9220EDA5500332E84 /* RSSTableViewCell.swift */,
+				CEF178EA220EDA5500332E84 /* RSSTableViewCell.xib */,
+			);
+			path = Presentation;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -233,7 +258,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				CEF178C2220ED99A00332E84 /* LaunchScreen.storyboard in Resources */,
+				CEF178E7220ED9D500332E84 /* news.plist in Resources */,
 				CEF178BF220ED99A00332E84 /* Assets.xcassets in Resources */,
+				CEF178EC220EDA5500332E84 /* RSSTableViewCell.xib in Resources */,
 				CEF178BA220ED99800332E84 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -259,6 +286,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CEF178EB220EDA5500332E84 /* RSSTableViewCell.swift in Sources */,
 				CEF178B7220ED99800332E84 /* ViewController.swift in Sources */,
 				CEF178BD220ED99800332E84 /* RSSNews.xcdatamodeld in Sources */,
 				CEF178B5220ED99800332E84 /* AppDelegate.swift in Sources */,
