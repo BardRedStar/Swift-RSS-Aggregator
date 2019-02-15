@@ -23,9 +23,4 @@ class RSSTableViewCell: UITableViewCell {
 
         // Configure the view for the selected state
     }
-    
-    override func prepareForReuse() {
-        titleLabel = nil
-        contentLabel = nil
-    }
 }

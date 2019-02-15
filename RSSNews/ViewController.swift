@@ -11,7 +11,6 @@ import UIKit
 /// A main class of application
 class ViewController: UIViewController {
 
-    
     @IBOutlet weak var newsTableView: UITableView!
     
     var newsDictionary: NSDictionary?
@@ -38,6 +37,7 @@ class ViewController: UIViewController {
 
 /// An extension for viewcontroller class to use table view
 extension ViewController: UITableViewDataSource {
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return newsDictionary!.count
     }
@@ -61,6 +61,4 @@ extension ViewController: UITableViewDataSource {
         
         return cell
     }
-    
-    
 }
