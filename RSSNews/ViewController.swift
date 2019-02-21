@@ -10,26 +10,25 @@ import UIKit
 
 /// A main class of application
 class ViewController: UIViewController {
-
+    
     @IBOutlet weak var newsTableView: UITableView!
     
-    var newsDictionary: NSDictionary?
+    private var newsDictionary: NSDictionary?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        readPropertyList()
+        readPropertyList ()
         
         newsTableView.dataSource = self
     }
-
+    
     /// Reads the news from the properties file (.pfile) and put it into global dictionary
     func readPropertyList() {
         
         if let path = Bundle.main.path(forResource: "news", ofType: "plist") {
             newsDictionary = NSDictionary(contentsOfFile: path)
-        }
-        else {
+        } else {
             fatalError("File is not found!")
         }
     }
@@ -46,15 +45,15 @@ extension ViewController: UITableViewDataSource {
         
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "RSSUITableViewCell", for: indexPath) as? RSSTableViewCell
             else {
-            fatalError("This isn't a RSSUITableViewCell object!")
+                fatalError("This isn't a RSSUITableViewCell object!")
         }
         
         // Get news by index from dictionary (sorry for that)
         var i = 0
         for (title, content) in newsDictionary! {
-            if (i == indexPath.row) {
-                cell.titleLabel.text = (title as? String) ?? "Unknown"
-                cell.contentLabel.text = (content as? String) ?? "Unknown"
+            if i == indexPath.row {
+                cell.title = (title as? String) ?? "Unknown"
+                cell.content = (content as? String) ?? "Unknown"
             }
             i += 1
         }
