@@ -19,7 +19,6 @@
 		CEF178CD220ED99A00332E84 /* RSSNewsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEF178CC220ED99A00332E84 /* RSSNewsTests.swift */; };
 		CEF178D8220ED99A00332E84 /* RSSNewsUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEF178D7220ED99A00332E84 /* RSSNewsUITests.swift */; };
 		CEF178EE220EF03500332E84 /* RSSTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEF178ED220EF03500332E84 /* RSSTableViewCell.swift */; };
-		CEF178F0220EF05300332E84 /* RSSTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = CEF178EF220EF05300332E84 /* RSSTableViewCell.xib */; };
 		CEF178F2220EF06000332E84 /* news.plist in Resources */ = {isa = PBXBuildFile; fileRef = CEF178F1220EF06000332E84 /* news.plist */; };
 		D3BF73513FCA697E507744FB /* Pods_RSSNews.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5050401BCA6EA0D90BBF5D63 /* Pods_RSSNews.framework */; };
 /* End PBXBuildFile section */
@@ -66,7 +65,6 @@
 		CEF178D7220ED99A00332E84 /* RSSNewsUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RSSNewsUITests.swift; sourceTree = "<group>"; };
 		CEF178D9220ED99A00332E84 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		CEF178ED220EF03500332E84 /* RSSTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RSSTableViewCell.swift; sourceTree = "<group>"; };
-		CEF178EF220EF05300332E84 /* RSSTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RSSTableViewCell.xib; sourceTree = "<group>"; };
 		CEF178F1220EF06000332E84 /* news.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = news.plist; sourceTree = "<group>"; };
 		F856A4C88989B58CBCCCC3E2 /* Pods-RSSNewsTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RSSNewsTests.release.xcconfig"; path = "Target Support Files/Pods-RSSNewsTests/Pods-RSSNewsTests.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -189,7 +187,6 @@
 			isa = PBXGroup;
 			children = (
 				CEF178ED220EF03500332E84 /* RSSTableViewCell.swift */,
-				CEF178EF220EF05300332E84 /* RSSTableViewCell.xib */,
 			);
 			path = Presentation;
 			sourceTree = "<group>";
@@ -315,7 +312,6 @@
 				CEF178F2220EF06000332E84 /* news.plist in Resources */,
 				CEF178C2220ED99A00332E84 /* LaunchScreen.storyboard in Resources */,
 				CEF178BF220ED99A00332E84 /* Assets.xcassets in Resources */,
-				CEF178F0220EF05300332E84 /* RSSTableViewCell.xib in Resources */,
 				CEF178BA220ED99800332E84 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
