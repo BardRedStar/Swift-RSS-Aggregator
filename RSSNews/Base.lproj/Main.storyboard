@@ -31,7 +31,7 @@
         <!--Home-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="RSSNews" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="BYZ-38-t0r" customClass="MainViewController" customModule="RSSNews" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -40,38 +40,52 @@
                                 <rect key="frame" x="8" y="72" width="398" height="656"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="RSSUITableViewCell" rowHeight="65" id="1Za-cB-gmR" customClass="RSSTableViewCell" customModule="RSSNews" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="28" width="398" height="65"/>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="RSSUITableViewCell" rowHeight="90" id="1Za-cB-gmR" customClass="RSSTableViewCell" customModule="RSSNews" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="28" width="398" height="90"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="1Za-cB-gmR" id="UyJ-XX-K5I">
-                                            <rect key="frame" x="0.0" y="0.0" width="398" height="64.666666666666671"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="398" height="89.666666666666671"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="o7c-Zy-mkG">
-                                                    <rect key="frame" x="8" y="8" width="382" height="20"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Title" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="o7c-Zy-mkG">
+                                                    <rect key="frame" x="80" y="8" width="310" height="28"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="28" id="8lq-sS-v4D"/>
+                                                    </constraints>
                                                     <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Content" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IFO-SX-5xL">
-                                                    <rect key="frame" x="8" y="36" width="382" height="20"/>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="default_icon" translatesAutoresizingMaskIntoConstraints="NO" id="LXM-Jr-5uk">
+                                                    <rect key="frame" x="8" y="8" width="64" height="64"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="64" id="3LX-65-bZD"/>
+                                                        <constraint firstAttribute="height" constant="64" id="dUJ-uE-A1c"/>
+                                                    </constraints>
+                                                </imageView>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Content" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IFO-SX-5xL">
+                                                    <rect key="frame" x="80" y="44" width="310" height="20.333333333333329"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstItem="IFO-SX-5xL" firstAttribute="leading" secondItem="UyJ-XX-K5I" secondAttribute="leading" constant="8" id="D7i-6V-tvO"/>
-                                                <constraint firstItem="o7c-Zy-mkG" firstAttribute="top" secondItem="UyJ-XX-K5I" secondAttribute="top" constant="8" id="Fnl-06-hEJ"/>
-                                                <constraint firstAttribute="trailing" secondItem="IFO-SX-5xL" secondAttribute="trailing" constant="8" id="HX1-dP-cuY"/>
-                                                <constraint firstItem="IFO-SX-5xL" firstAttribute="top" secondItem="o7c-Zy-mkG" secondAttribute="bottom" constant="8" id="POc-8d-qvA"/>
-                                                <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="IFO-SX-5xL" secondAttribute="bottom" constant="8" id="VaL-gO-9QL"/>
-                                                <constraint firstAttribute="trailing" secondItem="o7c-Zy-mkG" secondAttribute="trailing" constant="8" id="cDP-BD-iak"/>
-                                                <constraint firstItem="o7c-Zy-mkG" firstAttribute="leading" secondItem="UyJ-XX-K5I" secondAttribute="leading" constant="8" id="wVs-EB-hvL"/>
+                                                <constraint firstItem="LXM-Jr-5uk" firstAttribute="leading" secondItem="UyJ-XX-K5I" secondAttribute="leading" constant="8" id="GeA-rR-8aA"/>
+                                                <constraint firstItem="IFO-SX-5xL" firstAttribute="top" secondItem="o7c-Zy-mkG" secondAttribute="bottom" constant="8" id="K9i-tA-08p"/>
+                                                <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="LXM-Jr-5uk" secondAttribute="bottom" constant="8" id="Myx-CS-sVP"/>
+                                                <constraint firstAttribute="trailing" secondItem="IFO-SX-5xL" secondAttribute="trailing" constant="8" id="QrZ-m5-WiW"/>
+                                                <constraint firstItem="o7c-Zy-mkG" firstAttribute="top" secondItem="UyJ-XX-K5I" secondAttribute="top" constant="8" id="SmN-Pd-vck"/>
+                                                <constraint firstItem="o7c-Zy-mkG" firstAttribute="leading" secondItem="LXM-Jr-5uk" secondAttribute="trailing" constant="8" id="Van-7V-rdu"/>
+                                                <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="IFO-SX-5xL" secondAttribute="bottom" constant="8" id="caE-0M-00T"/>
+                                                <constraint firstItem="LXM-Jr-5uk" firstAttribute="top" secondItem="UyJ-XX-K5I" secondAttribute="top" constant="8" id="nrM-nz-QKk"/>
+                                                <constraint firstAttribute="trailing" secondItem="o7c-Zy-mkG" secondAttribute="trailing" constant="8" id="qAH-tY-tt6"/>
+                                                <constraint firstItem="IFO-SX-5xL" firstAttribute="leading" secondItem="LXM-Jr-5uk" secondAttribute="trailing" constant="8" id="rbY-K8-gKi"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
                                             <outlet property="contentLabel" destination="IFO-SX-5xL" id="ZbV-yl-ZM8"/>
+                                            <outlet property="newsImageView" destination="LXM-Jr-5uk" id="wPH-5f-jxb"/>
                                             <outlet property="titleLabel" destination="o7c-Zy-mkG" id="AMc-Fe-AuY"/>
                                         </connections>
                                     </tableViewCell>
@@ -89,7 +103,7 @@
                     </view>
                     <navigationItem key="navigationItem" title="Home" id="uLx-S8-OH8"/>
                     <connections>
-                        <outlet property="newsTableView" destination="apd-uG-C92" id="h1G-kc-q5D"/>
+                        <outlet property="newsTableView" destination="apd-uG-C92" id="wBZ-RH-fFJ"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -97,4 +111,7 @@
             <point key="canvasLocation" x="128.98550724637681" y="131.25"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="default_icon" width="192" height="192"/>
+    </resources>
 </document>

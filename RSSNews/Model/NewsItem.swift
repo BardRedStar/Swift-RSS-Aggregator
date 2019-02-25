@@ -8,16 +8,15 @@
 
 import Foundation
 
-
 /// A data-class for holding the news item information
 open class NewsItem: Codable {
     var title: String
     var content: String
-    
+
     /// - Parameters:
     ///   - title: News item title
     ///   - content: News item content
-    init(title: String, content: String){
+    init(title: String, content: String) {
         self.title = title
         self.content = content
     }
