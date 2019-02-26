@@ -9,7 +9,10 @@
 import UIKit
 
 protocol MainView: class {
+
     func updateNewsData()
+
+    func setUpDataSource()
 }
 
 /// A main class of application
@@ -28,11 +31,11 @@ class MainViewController: UIViewController, MainView {
 
         // Geting data
         mainViewPresenter.onViewDidLoad()
+    }
 
-        // Setting up controls
+    func setUpDataSource() {
         setUpTableView()
         setUpSearchBar()
-
     }
 
     /// Sets up the table view
@@ -71,18 +74,12 @@ extension MainViewController: UITableViewDataSource {
 
         cell.title = newsItem.title
         cell.content = newsItem.content
-//        cell.imageContent = normalizeImage(image: UIImage(named: "default_icon")!, scaledToSize: CGSize(width: 64, height: 64))
-        cell.imageContent = UIImage(named: "default_icon")
+
+        mainViewPresenter.getNewsImage(from: newsItem.imageUrl, completionHandler: { (image) in
+            cell.imageContent = image
+        })
+
         return cell
-    }
-
-    func normalizeImage(image: UIImage, scaledToSize newSize: CGSize) -> UIImage {
-
-        UIGraphicsBeginImageContext( newSize )
-        image.draw(in: CGRect(x: 0, y: 0, width: newSize.width, height: newSize.height))
-        let newImage = UIGraphicsGetImageFromCurrentImageContext()
-        UIGraphicsEndImageContext()
-        return newImage!.withRenderingMode(.automatic)
     }
 
     func updateNewsData() {

@@ -30,7 +30,6 @@ class RSSTableViewCell: UITableViewCell {
 
     var imageContent: UIImage! {
         didSet {
-
             newsImageView.image = imageContent
         }
     }
@@ -38,6 +37,9 @@ class RSSTableViewCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
+
+        newsImageView.layer.cornerRadius = newsImageView.frame.size.height / 2
+        newsImageView.clipsToBounds = true
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {

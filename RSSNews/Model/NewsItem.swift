@@ -12,12 +12,14 @@ import Foundation
 public struct NewsItem: Codable {
     var title: String
     var content: String
+    var imageUrl: String
 
     /// - Parameters:
     ///   - title: News item title
     ///   - content: News item content
-    init(title: String, content: String) {
+    init(title: String, content: String, imageUrl: String) {
         self.title = title
         self.content = content
+        self.imageUrl = imageUrl
     }
 }
