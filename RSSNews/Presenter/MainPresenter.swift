@@ -84,7 +84,7 @@ class MainPresenter: MainViewPresenter {
         let name = Cryptography.MD5(from: imageUrl)
 
         if isImageExists(imageFileName: name) {
-            handler(getImageFromCache(imageFileName: name))
+            getImageFromCache(imageFileName: name, completionHandler: handler)
         } else {
             getImageByUrl(url: imageUrl, completionHandler: handler)
         }
@@ -185,9 +185,21 @@ class MainPresenter: MainViewPresenter {
     ///
     /// - Parameter imageName: Image name string
     /// - Returns: Image object
-    private func getImageFromCache(imageFileName imageName: String) -> UIImage {
-        let imageUrl = FileManagerHelper.getCachedImageUrlByName(fileName: imageName, fileExtension: ".jpg")
-        return UIImage(contentsOfFile: imageUrl.path)!
+    private func getImageFromCache(imageFileName imageName: String, completionHandler handler: @escaping (UIImage) -> Void) {
+
+        /// Asyncronously get the image from cache
+        DispatchQueue.global(qos: .utility).async {
+            let imageUrl = FileManagerHelper.getCachedImageUrlByName(fileName: imageName, fileExtension: ".jpg")
+
+            let imageContent = UIImage(contentsOfFile: imageUrl.path)!
+
+            /// Return the image content to the UI on main thread
+            DispatchQueue.main.async {
+                handler(imageContent)
+            }
+
+        }
+
     }
 
     /// Gets image by URL and saves it in cache folder
