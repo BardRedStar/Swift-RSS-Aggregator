@@ -8,11 +8,11 @@
 
 import UIKit
 
+/// A main view protocol to link actions with presenter
 protocol MainView: class {
 
+    /// Updates the data in UITableView
     func updateNewsData()
-
-    func setUpDataSource()
 }
 
 /// A main class of application
@@ -29,13 +29,11 @@ class MainViewController: UIViewController, MainView {
 
         mainViewPresenter = MainPresenter(view: self)
 
-        // Geting data
-        mainViewPresenter.onViewDidLoad()
-    }
-
-    func setUpDataSource() {
         setUpTableView()
         setUpSearchBar()
+
+        // Geting data
+        mainViewPresenter.onViewDidLoad()
     }
 
     /// Sets up the table view
@@ -70,7 +68,7 @@ extension MainViewController: UITableViewDataSource {
                 fatalError("This isn't a RSSUITableViewCell object!")
         }
 
-        let newsItem = mainViewPresenter.getNewsItemByIndex(index: indexPath.row, isFiltering: isDataFiltering())
+        let newsItem = mainViewPresenter.getNewsItemByIndex(position: indexPath.row, isFiltering: isDataFiltering())
 
         cell.title = newsItem.title
         cell.content = newsItem.content

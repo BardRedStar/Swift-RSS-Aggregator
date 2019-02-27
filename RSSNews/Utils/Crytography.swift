@@ -9,8 +9,13 @@
 import Foundation
 import CommonCrypto
 
+/// A class for cryptography orepations with data
 class Cryptography {
 
+    /// Gets MD5 hash from string
+    ///
+    /// - Parameter string: String to get hash from
+    /// - Returns: Hash string
     public static func MD5(from string: String) -> String {
         let length = Int(CC_MD5_DIGEST_LENGTH)
         var digest = [UInt8](repeating: 0, count: length)
