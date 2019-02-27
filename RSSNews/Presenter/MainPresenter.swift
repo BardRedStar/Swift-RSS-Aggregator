@@ -7,8 +7,7 @@
 //
 
 import Foundation
-import Alamofire
-import CommonCrypto
+import UIKit
 
 /// A protocol to link presenter to main view
 protocol MainViewPresenter {
@@ -43,7 +42,7 @@ protocol MainViewPresenter {
     /// - Parameters:
     ///   - imageUrl: URL adress of image
     ///   - completionHandler: Handler to get image when it will be completely loaded
-    func getNewsImage(from imageUrl: String, completionHandler: @escaping (UIImage) -> Void)
+    func getNewsImage(from imageUrl: String, completionHandler handler: @escaping (UIImage) -> Void)
 }
 
 /// A class for absorb business logic (according to MVP)
@@ -61,7 +60,7 @@ class MainPresenter: MainViewPresenter {
     /// Overriden protocol methods
 
     func onViewDidLoad() {
-        loadNews()
+        loadNewsFromRemote()
     }
 
     func getNewsCount(isFiltering: Bool) -> Int {
@@ -81,147 +80,37 @@ class MainPresenter: MainViewPresenter {
     }
 
     func getNewsImage(from imageUrl: String, completionHandler handler: @escaping (UIImage) -> Void) {
+        
         let name = Cryptography.MD5(from: imageUrl)
+        let cacheApiInstance = CacheAPI.instance
 
-        if isImageExists(imageFileName: name) {
-            getImageFromCache(imageFileName: name, completionHandler: handler)
+        if cacheApiInstance.isImageExists(imageFileName: name) {
+            cacheApiInstance.getImageFromCache(imageFileName: name, completionHandler: { data in
+                handler(data != nil ? UIImage(data: data!)! : UIImage(named: "default_icon")!)
+            })
         } else {
-            getImageByUrl(url: imageUrl, completionHandler: handler)
+            RemoteAPI.instance.getImageByUrl(url: imageUrl, completionHandler: { data in
+                cacheApiInstance.saveImageInCache(imageName: imageUrl, content: data)
+                handler(UIImage(data: data)!)
+            })
         }
     }
 
     /// Private presenter methods
 
-    /// Creates a HTTP request to API to get last news
-    private func loadNews() {
+    /// Tries to load news from remote API
+    private func loadNewsFromRemote() {
+        RemoteAPI.instance.loadNewsFromSource(completionHandler: { newsEntity in
 
-        /// Hardcoded params
-        let params: [String: Any] = [
-            "sources": "techcrunch"
-        ]
+            /// Clear old data
+            self.newsArray.removeAll()
+            self.filteredNewsArray.removeAll()
 
-        /// Hardcoded headers
-        let headers: [String: String] = [
-            "Authorization": "Basic 5592af9332c14f9080c0d9132bf1efee"
-        ]
-
-        /// Request
-        Alamofire.request("https://newsapi.org/v2/top-headlines", parameters: params, headers: headers)
-            .validate()
-            .responseString { responseString -> Void in
-                switch responseString.result {
-                case .success(let value):
-
-                    let newsResponse: NewsEntity? = try? JSONDecoder().decode(NewsEntity.self, from: Data(value.utf8))
-
-                    self.newsArray.removeAll()
-                    self.filteredNewsArray.removeAll()
-
-                    if newsResponse != nil {
-                        self.newsArray = self.mapResponseToItemArray(response: newsResponse!)
-                    }
-
-                    self.view.updateNewsData()
-
-                case .failure(let error):
-                    print(error)
-                }
-            }
-    }
-
-    /// Parses response to NewsItem array
-    ///
-    /// - Parameter response: Response object
-    /// - Returns: NewsItem objects array
-    private func mapResponseToItemArray(response: NewsEntity) -> [NewsItem] {
-
-        var result: [NewsItem] = []
-
-        for article in response.articles {
-            result.append(NewsItem(title: article.title!, content: article.description!, imageUrl: article.urlToImage!))
-        }
-
-        return result
-    }
-
-    /// Saves image in the cache folder with hashed name (using MD5)
-    ///
-    /// - Parameters:
-    ///   - iamgeName: imageName
-    ///   - content: image content (data)
-    private func saveImageInCache(imageName: String, content: Data) {
-
-        /// Get URL of Caches/images folder
-        let fileManager = FileManager.default
-        var cacheURL = fileManager.urls(for: .cachesDirectory, in: .userDomainMask).first!
-        cacheURL.appendPathComponent("images", isDirectory: true)
-
-        do {
-
-            /// Check directory existence
-            if !fileManager.fileExists(atPath: cacheURL.path) {
-                try fileManager.createDirectory(at: cacheURL, withIntermediateDirectories: false, attributes: nil)
+            if newsEntity != nil {
+                self.newsArray = NewsMapper.mapEntityToItemArray(entity: newsEntity!)
             }
 
-            /// Save file
-            cacheURL.appendPathComponent(Cryptography.MD5(from: imageName) + ".jpg")
-            fileManager.createFile(atPath: cacheURL.path, contents: content, attributes: nil)
-
-        } catch {
-            print(error.localizedDescription)
-        }
+            self.view.updateNewsData()
+        })
     }
-
-    /// Checks image existence in the cache folder
-    ///
-    /// - Parameter imageName: Image name
-    /// - Returns: true if image exists and false otherwise
-    private func isImageExists(imageFileName imageName: String) -> Bool {
-        let imageUrl = FileManagerHelper.getCachedImageUrlByName(fileName: imageName, fileExtension: ".jpg")
-        return FileManager.default.fileExists(atPath: imageUrl.path)
-    }
-
-    /// Gets image from the cache folder
-    ///
-    /// - Parameter imageName: Image name string
-    /// - Returns: Image object
-    private func getImageFromCache(imageFileName imageName: String, completionHandler handler: @escaping (UIImage) -> Void) {
-
-        /// Asyncronously get the image from cache
-        DispatchQueue.global(qos: .utility).async {
-            let imageUrl = FileManagerHelper.getCachedImageUrlByName(fileName: imageName, fileExtension: ".jpg")
-
-            let imageContent = UIImage(contentsOfFile: imageUrl.path)!
-
-            /// Return the image content to the UI on main thread
-            DispatchQueue.main.async {
-                handler(imageContent)
-            }
-
-        }
-
-    }
-
-    /// Gets image by URL and saves it in cache folder
-    ///
-    /// - Parameters:
-    ///   - imageUrl: URL to get image by
-    ///   - completionHandler: Handler to get result asycronously
-    private func getImageByUrl(url imageUrl: String, completionHandler: @escaping (UIImage) -> Void) {
-        Alamofire.request(imageUrl)
-            .validate()
-            .responseData { (response) in
-                switch response.result {
-                case .success(let data):
-
-                    self.saveImageInCache(imageName: imageUrl, content: data)
-                    completionHandler(UIImage(data: data)!)
-
-                case .failure(let error):
-                    print(error)
-                }
-            }
-
-    }
-
 }
