@@ -80,7 +80,7 @@ class MainPresenter: MainViewPresenter {
     }
 
     func getNewsImage(from imageUrl: String, completionHandler handler: @escaping (UIImage) -> Void) {
-        
+
         let name = Cryptography.MD5(from: imageUrl)
         let cacheApiInstance = CacheAPI.instance
 

@@ -20,28 +20,30 @@ class CacheAPI {
     /// Saves image in the cache folder with hashed name (using MD5)
     ///
     /// - Parameters:
-    ///   - iamgeName: imageName
+    ///   - imageName: imageName
     ///   - content: image content (data)
     func saveImageInCache(imageName: String, content: Data) {
 
-        /// Get URL of Caches/images folder
-        let fileManager = FileManager.default
-        var cacheURL = fileManager.urls(for: .cachesDirectory, in: .userDomainMask).first!
-        cacheURL.appendPathComponent("images", isDirectory: true)
+        DispatchQueue.global(qos: .utility).async {
+            /// Get URL of Caches/images folder
+            let fileManager = FileManager.default
+            var cacheURL = fileManager.urls(for: .cachesDirectory, in: .userDomainMask).first!
+            cacheURL.appendPathComponent("images", isDirectory: true)
 
-        do {
+            do {
 
-            /// Check directory existence
-            if !fileManager.fileExists(atPath: cacheURL.path) {
-                try fileManager.createDirectory(at: cacheURL, withIntermediateDirectories: false, attributes: nil)
+                /// Check directory existence
+                if !fileManager.fileExists(atPath: cacheURL.path) {
+                    try fileManager.createDirectory(at: cacheURL, withIntermediateDirectories: false, attributes: nil)
+                }
+
+                /// Save file
+                cacheURL.appendPathComponent(Cryptography.MD5(from: imageName) + ".jpg")
+                fileManager.createFile(atPath: cacheURL.path, contents: content, attributes: nil)
+
+            } catch {
+                print(error.localizedDescription)
             }
-
-            /// Save file
-            cacheURL.appendPathComponent(Cryptography.MD5(from: imageName) + ".jpg")
-            fileManager.createFile(atPath: cacheURL.path, contents: content, attributes: nil)
-
-        } catch {
-            print(error.localizedDescription)
         }
     }
 
@@ -54,7 +56,6 @@ class CacheAPI {
         return FileManager.default.fileExists(atPath: imageUrl.path)
     }
 
-    
     /// Gets image from the cache folder
     ///
     /// - Parameters:
