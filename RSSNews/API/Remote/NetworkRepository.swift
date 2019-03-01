@@ -25,14 +25,14 @@ class NetworkRepository {
 
     /// Hardcoded headers
     let headers: [String: String] = [
-        "Authorization": "Basic " + Constants.API.key.rawValue
+        "Authorization": "Basic " + Constants.apiKey
     ]
 
     /// Creates a HTTP request to API to get last news
     func loadNewsFromSource(completionHandler handler: @escaping (NewsEntity?) -> Void) {
 
         /// Request
-        Alamofire.request(Constants.API.url.rawValue, parameters: params, headers: headers)
+        Alamofire.request(Constants.apiUrl, parameters: params, headers: headers)
             .validate()
             .responseString { responseString -> Void in
                 switch responseString.result {

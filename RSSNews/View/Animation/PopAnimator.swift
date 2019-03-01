@@ -18,7 +18,7 @@ class PopAnimator: NSObject, UIViewControllerAnimatedTransitioning {
     var dismissCompletion: (() -> Void)?
 
     func transitionDuration(using transitionContext: UIViewControllerContextTransitioning?) -> TimeInterval {
-        return Constants.Animation.popDuration.rawValue
+        return Constants.popAnimationDuration
     }
 
     func animateTransition(using transitionContext: UIViewControllerContextTransitioning) {
@@ -53,8 +53,8 @@ class PopAnimator: NSObject, UIViewControllerAnimatedTransitioning {
         containerView.bringSubviewToFront(fullImageView)
 
         /// Animate
-        UIView.animate(withDuration: Constants.Animation.popDuration.rawValue,
-                       delay: Constants.Animation.popDelay.rawValue,
+        UIView.animate(withDuration: Constants.popAnimationDuration,
+                       delay: Constants.popAnimationDelay,
                        animations: {
                         fullImageView.transform = self.presenting ? CGAffineTransform.identity : scaleTransform
                         fullImageView.center = CGPoint(x: finalFrame.midX, y: finalFrame.midY)

@@ -20,7 +20,7 @@ public class FileManagerHelper {
     public static func getCachedImageUrlByName(fileName: String, fileExtension: String) -> URL {
         let fileManager = FileManager.default
         var fileUrl = fileManager.urls(for: .cachesDirectory, in: .userDomainMask).first!
-        fileUrl.appendPathComponent(Constants.Image.cacheFolderName.rawValue, isDirectory: true)
+        fileUrl.appendPathComponent(Constants.imageCacheFolderName, isDirectory: true)
         fileUrl.appendPathComponent(fileName + fileExtension)
         return fileUrl
     }

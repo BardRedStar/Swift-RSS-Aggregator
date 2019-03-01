@@ -52,7 +52,7 @@ class MainViewController: UIViewController, MainView {
 
         newsSearchController.searchResultsUpdater = self
         newsSearchController.obscuresBackgroundDuringPresentation = false
-        newsSearchController.searchBar.placeholder = Constants.DefaultViewValues.searchBarPlaceholder.rawValue
+        newsSearchController.searchBar.placeholder = Constants.defaultSearchBarPlaceholderText
         navigationItem.searchController = newsSearchController
         definesPresentationContext = true
     }
@@ -73,7 +73,7 @@ extension MainViewController: UITableViewDataSource, UIGestureRecognizerDelegate
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: Constants.Identifiers.tableViewCell.rawValue,
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: Constants.tableViewCellIdentifier,
                                                        for: indexPath) as? RSSTableViewCell
             else {
                 fatalError("This isn't a RSSUITableViewCell object!")
@@ -99,7 +99,7 @@ extension MainViewController: UITableViewDataSource, UIGestureRecognizerDelegate
     @objc func didTapImageView(_ tap: UITapGestureRecognizer) {
         selectedImage = tap.view as? UIImageView
         //present details view controller
-        guard let imageDetails = storyboard!.instantiateViewController(withIdentifier: "FullImageViewController")
+        guard let imageDetails = storyboard!.instantiateViewController(withIdentifier: Constants.fullImageViewControllerIdentifier)
             as? FullImageViewController else {
                 fatalError("Controller initializing error!")
         }

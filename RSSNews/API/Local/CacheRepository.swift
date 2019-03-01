@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import UIKit
 
 /// A class for operations with cache
 class CacheRepository {
@@ -28,7 +29,7 @@ class CacheRepository {
             /// Get URL of Caches/images folder
             let fileManager = FileManager.default
             var cacheURL = fileManager.urls(for: .cachesDirectory, in: .userDomainMask).first!
-            cacheURL.appendPathComponent(Constants.Image.cacheFolderName.rawValue, isDirectory: true)
+            cacheURL.appendPathComponent(Constants.imageCacheFolderName, isDirectory: true)
 
             do {
 
@@ -38,7 +39,7 @@ class CacheRepository {
                 }
 
                 /// Save file
-                cacheURL.appendPathComponent(Cryptography.MD5(from: imageName) + Constants.Image.fileExtension.rawValue)
+                cacheURL.appendPathComponent(Cryptography.MD5(from: imageName) + Constants.imageFileExtension)
                 fileManager.createFile(atPath: cacheURL.path, contents: content, attributes: nil)
 
             } catch {
@@ -52,7 +53,7 @@ class CacheRepository {
     /// - Parameter imageName: Image name
     /// - Returns: true if image exists and false otherwise
     func isImageExists(imageFileName imageName: String) -> Bool {
-        let imageUrl = FileManagerHelper.getCachedImageUrlByName(fileName: imageName, fileExtension: Constants.Image.fileExtension.rawValue)
+        let imageUrl = FileManagerHelper.getCachedImageUrlByName(fileName: imageName, fileExtension: Constants.imageFileExtension)
         return FileManager.default.fileExists(atPath: imageUrl.path)
     }
 
@@ -67,7 +68,7 @@ class CacheRepository {
         DispatchQueue.global(qos: .utility).async {
             let imageUrl = FileManagerHelper.getCachedImageUrlByName(
                 fileName: imageName,
-                fileExtension: Constants.Image.fileExtension.rawValue)
+                fileExtension: Constants.imageFileExtension)
 
             let imageContent = try? Data(contentsOf: imageUrl)
 
@@ -78,6 +79,44 @@ class CacheRepository {
 
         }
 
+    }
+
+    /// Asynchronously checks image files in cache and removes files which elapsed time greater than constant value (see Constants.swift)
+    func removeOutdatedImagesFromCache() {
+        DispatchQueue.global(qos: .utility).async {
+            /// Get URL of Caches/images folder
+            let fileManager = FileManager.default
+            var cacheURL = fileManager.urls(for: .cachesDirectory, in: .userDomainMask).first!
+            cacheURL.appendPathComponent(Constants.imageCacheFolderName, isDirectory: true)
+
+            let calendar = Calendar(identifier: .iso8601)
+
+            do {
+                /// Get image files from cache directory
+                let imagesArray = try fileManager.contentsOfDirectory(
+                    at: cacheURL,
+                    includingPropertiesForKeys: [URLResourceKey.creationDateKey],
+                    options: .skipsHiddenFiles)
+
+                for imageURL in imagesArray {
+
+                    /// Get elapsed time interval
+                    let resource = try imageURL.resourceValues(forKeys: [URLResourceKey.creationDateKey])
+                    let interval = calendar.dateComponents([Calendar.Component.day,
+                                                            Calendar.Component.hour,
+                                                            Calendar.Component.minute,
+                                                            Calendar.Component.second], from: resource.creationDate!, to: Date())
+
+                    /// Delete image file if time limit exceeded
+                    if interval.minute! > Constants.imageCacheFileLifeDurationDays {
+                        try fileManager.removeItem(at: imageURL)
+                    }
+                }
+
+            } catch {
+                print(error.localizedDescription)
+            }
+        }
     }
 
 }

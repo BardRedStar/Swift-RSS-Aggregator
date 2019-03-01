@@ -60,6 +60,7 @@ class MainPresenter: MainViewPresenter {
     /// Overriden protocol methods
 
     func onViewDidLoad() {
+        checkOutdatedImages()
         loadNewsFromRemote()
     }
 
@@ -86,7 +87,7 @@ class MainPresenter: MainViewPresenter {
 
         if cacheApiInstance.isImageExists(imageFileName: name) {
             cacheApiInstance.getImageFromCache(imageFileName: name, completionHandler: { data in
-                handler(data != nil ? UIImage(data: data!)! : UIImage(named: Constants.Resources.defaultIconName.rawValue)!)
+                handler(data != nil ? UIImage(data: data!)! : UIImage(named: Constants.resourcesDefaultIconName)!)
             })
         } else {
             NetworkRepository.instance.getImageByUrl(url: imageUrl, completionHandler: { data in
@@ -112,5 +113,9 @@ class MainPresenter: MainViewPresenter {
 
             self.view.updateNewsData()
         })
+    }
+
+    private func checkOutdatedImages() {
+        CacheRepository.instance.removeOutdatedImagesFromCache()
     }
 }
