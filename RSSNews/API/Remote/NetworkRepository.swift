@@ -10,10 +10,10 @@ import Foundation
 import Alamofire
 
 /// A class for executing HTTP request to remote API
-class RemoteAPI {
+class NetworkRepository {
 
     /// Singleton
-    static let instance = RemoteAPI()
+    static let instance = NetworkRepository()
 
     private init() {
     }
@@ -25,14 +25,14 @@ class RemoteAPI {
 
     /// Hardcoded headers
     let headers: [String: String] = [
-        "Authorization": "Basic 5592af9332c14f9080c0d9132bf1efee"
+        "Authorization": "Basic " + Constants.API.key.rawValue
     ]
 
     /// Creates a HTTP request to API to get last news
     func loadNewsFromSource(completionHandler handler: @escaping (NewsEntity?) -> Void) {
 
         /// Request
-        Alamofire.request("https://newsapi.org/v2/top-headlines", parameters: params, headers: headers)
+        Alamofire.request(Constants.API.url.rawValue, parameters: params, headers: headers)
             .validate()
             .responseString { responseString -> Void in
                 switch responseString.result {

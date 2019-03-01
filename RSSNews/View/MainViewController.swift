@@ -52,7 +52,7 @@ class MainViewController: UIViewController, MainView {
 
         newsSearchController.searchResultsUpdater = self
         newsSearchController.obscuresBackgroundDuringPresentation = false
-        newsSearchController.searchBar.placeholder = "Search news"
+        newsSearchController.searchBar.placeholder = Constants.DefaultViewValues.searchBarPlaceholder.rawValue
         navigationItem.searchController = newsSearchController
         definesPresentationContext = true
     }
@@ -73,7 +73,8 @@ extension MainViewController: UITableViewDataSource, UIGestureRecognizerDelegate
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: "RSSUITableViewCell", for: indexPath) as? RSSTableViewCell
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: Constants.Identifiers.tableViewCell.rawValue,
+                                                       for: indexPath) as? RSSTableViewCell
             else {
                 fatalError("This isn't a RSSUITableViewCell object!")
         }
@@ -139,21 +140,21 @@ extension MainViewController: UISearchResultsUpdating {
     /// - Parameters:
     ///   - searchText: Text to searching by
     ///   - scope: Scope name (soon)
-    func filterContentForSearchText(searchText: String, scope: String = "All") {
+    private func filterContentForSearchText(searchText: String, scope: String = "All") {
         mainViewPresenter.updateFilteredNewsBySearchText(forSearchText: searchText)
     }
 
     /// Checks searchbar emptiness
     ///
     /// - Returns: True if the searchbar is empty, false otherwise
-    func searchBarIsEmpty() -> Bool {
+    private func searchBarIsEmpty() -> Bool {
         return newsSearchController.searchBar.text?.isEmpty ?? true
     }
 
     /// Checks the filtering mode
     ///
     /// - Returns: True if the filter mode is active, false otherwise
-    func isDataFiltering() -> Bool {
+    private func isDataFiltering() -> Bool {
         return newsSearchController.isActive && !searchBarIsEmpty()
     }
 }

@@ -12,14 +12,13 @@ import UIKit
 /// A class for animating full picture opening
 class PopAnimator: NSObject, UIViewControllerAnimatedTransitioning {
 
-    let duration = 0.25
     var presenting = true
     var originFrame = CGRect.zero
 
     var dismissCompletion: (() -> Void)?
 
     func transitionDuration(using transitionContext: UIViewControllerContextTransitioning?) -> TimeInterval {
-        return duration
+        return Constants.Animation.popDuration.rawValue
     }
 
     func animateTransition(using transitionContext: UIViewControllerContextTransitioning) {
@@ -54,7 +53,8 @@ class PopAnimator: NSObject, UIViewControllerAnimatedTransitioning {
         containerView.bringSubviewToFront(fullImageView)
 
         /// Animate
-        UIView.animate(withDuration: duration, delay: 0.0,
+        UIView.animate(withDuration: Constants.Animation.popDuration.rawValue,
+                       delay: Constants.Animation.popDelay.rawValue,
                        animations: {
                         fullImageView.transform = self.presenting ? CGAffineTransform.identity : scaleTransform
                         fullImageView.center = CGPoint(x: finalFrame.midX, y: finalFrame.midY)

@@ -82,14 +82,14 @@ class MainPresenter: MainViewPresenter {
     func getNewsImage(from imageUrl: String, completionHandler handler: @escaping (UIImage) -> Void) {
 
         let name = Cryptography.MD5(from: imageUrl)
-        let cacheApiInstance = CacheAPI.instance
+        let cacheApiInstance = CacheRepository.instance
 
         if cacheApiInstance.isImageExists(imageFileName: name) {
             cacheApiInstance.getImageFromCache(imageFileName: name, completionHandler: { data in
-                handler(data != nil ? UIImage(data: data!)! : UIImage(named: "default_icon")!)
+                handler(data != nil ? UIImage(data: data!)! : UIImage(named: Constants.Resources.defaultIconName.rawValue)!)
             })
         } else {
-            RemoteAPI.instance.getImageByUrl(url: imageUrl, completionHandler: { data in
+            NetworkRepository.instance.getImageByUrl(url: imageUrl, completionHandler: { data in
                 cacheApiInstance.saveImageInCache(imageName: imageUrl, content: data)
                 handler(UIImage(data: data)!)
             })
@@ -100,7 +100,7 @@ class MainPresenter: MainViewPresenter {
 
     /// Tries to load news from remote API
     private func loadNewsFromRemote() {
-        RemoteAPI.instance.loadNewsFromSource(completionHandler: { newsEntity in
+        NetworkRepository.instance.loadNewsFromSource(completionHandler: { newsEntity in
 
             /// Clear old data
             self.newsArray.removeAll()

@@ -9,10 +9,10 @@
 import Foundation
 
 /// A class for operations with cache
-class CacheAPI {
+class CacheRepository {
 
     /// Singleton
-    static let instance = CacheAPI()
+    static let instance = CacheRepository()
 
     private init() {
     }
@@ -28,7 +28,7 @@ class CacheAPI {
             /// Get URL of Caches/images folder
             let fileManager = FileManager.default
             var cacheURL = fileManager.urls(for: .cachesDirectory, in: .userDomainMask).first!
-            cacheURL.appendPathComponent("images", isDirectory: true)
+            cacheURL.appendPathComponent(Constants.Image.cacheFolderName.rawValue, isDirectory: true)
 
             do {
 
@@ -38,7 +38,7 @@ class CacheAPI {
                 }
 
                 /// Save file
-                cacheURL.appendPathComponent(Cryptography.MD5(from: imageName) + ".jpg")
+                cacheURL.appendPathComponent(Cryptography.MD5(from: imageName) + Constants.Image.fileExtension.rawValue)
                 fileManager.createFile(atPath: cacheURL.path, contents: content, attributes: nil)
 
             } catch {
@@ -52,7 +52,7 @@ class CacheAPI {
     /// - Parameter imageName: Image name
     /// - Returns: true if image exists and false otherwise
     func isImageExists(imageFileName imageName: String) -> Bool {
-        let imageUrl = FileManagerHelper.getCachedImageUrlByName(fileName: imageName, fileExtension: ".jpg")
+        let imageUrl = FileManagerHelper.getCachedImageUrlByName(fileName: imageName, fileExtension: Constants.Image.fileExtension.rawValue)
         return FileManager.default.fileExists(atPath: imageUrl.path)
     }
 
@@ -65,7 +65,9 @@ class CacheAPI {
 
         /// Asyncronously get the image from cache
         DispatchQueue.global(qos: .utility).async {
-            let imageUrl = FileManagerHelper.getCachedImageUrlByName(fileName: imageName, fileExtension: ".jpg")
+            let imageUrl = FileManagerHelper.getCachedImageUrlByName(
+                fileName: imageName,
+                fileExtension: Constants.Image.fileExtension.rawValue)
 
             let imageContent = try? Data(contentsOf: imageUrl)
 
