@@ -47,4 +47,8 @@ class RSSTableViewCell: UITableViewCell {
 
         // Configure the view for the selected state
     }
+
+    func addImageGestureRecognizer(_ gestureRecognizer: UIGestureRecognizer) {
+        newsImageView.addGestureRecognizer(gestureRecognizer)
+    }
 }

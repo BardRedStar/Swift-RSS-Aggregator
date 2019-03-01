@@ -12,6 +12,8 @@
 		CE1E64222226603100F3985F /* RemoteAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE1E64212226603100F3985F /* RemoteAPI.swift */; };
 		CE1E642422267FEF00F3985F /* Mappers.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE1E642322267FEF00F3985F /* Mappers.swift */; };
 		CE1E64262226827200F3985F /* CacheAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE1E64252226827200F3985F /* CacheAPI.swift */; };
+		CE57E3A22227D1FE00EBB63F /* FullImageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE57E3A12227D1FE00EBB63F /* FullImageViewController.swift */; };
+		CE57E3A52227D2B900EBB63F /* PopAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE57E3A42227D2B900EBB63F /* PopAnimator.swift */; };
 		CE727CFE2223975900C9D596 /* MainPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE727CFD2223975900C9D596 /* MainPresenter.swift */; };
 		CE727D022223E47B00C9D596 /* NewsEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE727D012223E47B00C9D596 /* NewsEntity.swift */; };
 		CEA25739221E7899005C779E /* NewsItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEA25738221E7899005C779E /* NewsItem.swift */; };
@@ -59,6 +61,8 @@
 		CE1E64212226603100F3985F /* RemoteAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteAPI.swift; sourceTree = "<group>"; };
 		CE1E642322267FEF00F3985F /* Mappers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Mappers.swift; sourceTree = "<group>"; };
 		CE1E64252226827200F3985F /* CacheAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CacheAPI.swift; sourceTree = "<group>"; };
+		CE57E3A12227D1FE00EBB63F /* FullImageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FullImageViewController.swift; sourceTree = "<group>"; };
+		CE57E3A42227D2B900EBB63F /* PopAnimator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopAnimator.swift; sourceTree = "<group>"; };
 		CE727CFD2223975900C9D596 /* MainPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainPresenter.swift; sourceTree = "<group>"; };
 		CE727D012223E47B00C9D596 /* NewsEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsEntity.swift; sourceTree = "<group>"; };
 		CEA25738221E7899005C779E /* NewsItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsItem.swift; sourceTree = "<group>"; };
@@ -147,6 +151,14 @@
 				CE1E64252226827200F3985F /* CacheAPI.swift */,
 			);
 			path = Local;
+			sourceTree = "<group>";
+		};
+		CE57E3A32227D2A700EBB63F /* Animation */ = {
+			isa = PBXGroup;
+			children = (
+				CE57E3A42227D2B900EBB63F /* PopAnimator.swift */,
+			);
+			path = Animation;
 			sourceTree = "<group>";
 		};
 		CE5B6570221FD4A4002F2054 /* Presenter */ = {
@@ -254,6 +266,8 @@
 		CEF178E8220EDA3A00332E84 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				CE57E3A32227D2A700EBB63F /* Animation */,
+				CE57E3A12227D1FE00EBB63F /* FullImageViewController.swift */,
 				CEF178B6220ED99800332E84 /* MainViewController.swift */,
 				CEF178ED220EF03500332E84 /* RSSTableViewCell.swift */,
 			);
@@ -515,6 +529,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CE57E3A52227D2B900EBB63F /* PopAnimator.swift in Sources */,
 				CEDDABD7222540F800B6C8D8 /* Crytography.swift in Sources */,
 				CE727D022223E47B00C9D596 /* NewsEntity.swift in Sources */,
 				CEF178EE220EF03500332E84 /* RSSTableViewCell.swift in Sources */,
@@ -523,6 +538,7 @@
 				CEA25739221E7899005C779E /* NewsItem.swift in Sources */,
 				CE1E642422267FEF00F3985F /* Mappers.swift in Sources */,
 				CEF178B7220ED99800332E84 /* MainViewController.swift in Sources */,
+				CE57E3A22227D1FE00EBB63F /* FullImageViewController.swift in Sources */,
 				CEDDABD922254E3700B6C8D8 /* Utilities.swift in Sources */,
 				CEF178BD220ED99800332E84 /* RSSNews.xcdatamodeld in Sources */,
 				CEF178B5220ED99800332E84 /* AppDelegate.swift in Sources */,

@@ -24,6 +24,10 @@ class MainViewController: UIViewController, MainView {
 
     private var mainViewPresenter: MainViewPresenter!
 
+    private var selectedImage: UIImageView?
+
+    private let transition = PopAnimator()
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -31,18 +35,19 @@ class MainViewController: UIViewController, MainView {
 
         setUpTableView()
         setUpSearchBar()
+        setUpPopAnimation()
 
         // Geting data
         mainViewPresenter.onViewDidLoad()
     }
 
     /// Sets up the table view
-    func setUpTableView() {
+    private func setUpTableView() {
         newsTableView.dataSource = self
     }
 
     /// Sets up the search bar
-    func setUpSearchBar() {
+    private func setUpSearchBar() {
         newsSearchController = UISearchController(searchResultsController: nil)
 
         newsSearchController.searchResultsUpdater = self
@@ -52,11 +57,16 @@ class MainViewController: UIViewController, MainView {
         definesPresentationContext = true
     }
 
+    /// Sets up the pop animation
+    private func setUpPopAnimation() {
+        transition.dismissCompletion = {
+            self.selectedImage!.isHidden = false
+        }
+    }
 }
 
 /// An extension for viewcontroller class to use table view
-extension MainViewController: UITableViewDataSource {
-
+extension MainViewController: UITableViewDataSource, UIGestureRecognizerDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return mainViewPresenter.getNewsCount(isFiltering: isDataFiltering())
     }
@@ -75,6 +85,7 @@ extension MainViewController: UITableViewDataSource {
 
         mainViewPresenter.getNewsImage(from: newsItem.imageUrl, completionHandler: { (image) in
             cell.imageContent = image
+            cell.addImageGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(self.didTapImageView)))
         })
 
         return cell
@@ -82,6 +93,37 @@ extension MainViewController: UITableViewDataSource {
 
     func updateNewsData() {
         newsTableView.reloadData()
+    }
+
+    @objc func didTapImageView(_ tap: UITapGestureRecognizer) {
+        selectedImage = tap.view as? UIImageView
+        //present details view controller
+        guard let imageDetails = storyboard!.instantiateViewController(withIdentifier: "FullImageViewController")
+            as? FullImageViewController else {
+                fatalError("Controller initializing error!")
+        }
+        imageDetails.fullImageContent = selectedImage?.image
+        imageDetails.transitioningDelegate = self
+        present(imageDetails, animated: true, completion: nil)
+    }
+}
+
+extension MainViewController: UIViewControllerTransitioningDelegate {
+
+    func animationController(forPresented presented: UIViewController, presenting: UIViewController,
+                             source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+
+        transition.originFrame = selectedImage!.superview!.convert(selectedImage!.frame, to: nil)
+
+        transition.presenting = true
+        selectedImage!.isHidden = true
+
+        return transition
+    }
+
+    func animationController(forDismissed dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+        transition.presenting = false
+        return transition
     }
 }
 
