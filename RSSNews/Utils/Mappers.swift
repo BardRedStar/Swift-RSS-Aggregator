@@ -9,13 +9,13 @@
 import Foundation
 
 /// A class for mapping (convert) news entity objects to data objects and vice versa
-class NewsMapper {
+final class NewsMapper {
 
     /// Parses NewsEntity to NewsItem array
     ///
     /// - Parameter entity: Entity object
     /// - Returns: NewsItem objects array
-    static func mapEntityToItemArray(entity: NewsEntity) -> [NewsItem] {
+    class func mapEntityToItemArray(entity: NewsEntity) -> [NewsItem] {
 
         var result: [NewsItem] = []
 
