@@ -13,13 +13,15 @@ public struct NewsItem: Codable {
     var title: String
     var content: String
     var imageUrl: String
+    var date: String
 
     /// - Parameters:
     ///   - title: News item title
     ///   - content: News item content
-    init(title: String, content: String, imageUrl: String) {
+    init(title: String, content: String, imageUrl: String, date: String) {
         self.title = title
         self.content = content
         self.imageUrl = imageUrl
+        self.date = date
     }
 }

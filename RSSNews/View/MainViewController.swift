@@ -83,6 +83,7 @@ extension MainViewController: UITableViewDataSource, UIGestureRecognizerDelegate
 
         cell.title = newsItem.title
         cell.content = newsItem.content
+        cell.date = newsItem.date
 
         mainViewPresenter.getNewsImage(from: newsItem.imageUrl, completionHandler: { (image) in
             cell.imageContent = image

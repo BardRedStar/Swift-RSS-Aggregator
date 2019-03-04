@@ -34,6 +34,14 @@ class RSSTableViewCell: UITableViewCell {
         }
     }
 
+    @IBOutlet private weak var dateLabel: UILabel!
+
+    var date: String! {
+        didSet {
+            dateLabel.text = date
+        }
+    }
+
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code

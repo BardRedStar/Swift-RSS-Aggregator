@@ -20,7 +20,12 @@ final class NewsMapper {
         var result: [NewsItem] = []
 
         for article in entity.articles {
-            result.append(NewsItem(title: article.title!, content: article.description!, imageUrl: article.urlToImage!))
+
+            let title = article.title!
+            let content = article.description!
+            let imageUrl = article.urlToImage!
+            let date = DateTimeManager.getElapsedTime(from: DateTimeManager.convertUTCStringToDateFormat(from: article.publishedAt!))
+            result.append(NewsItem(title: title, content: content, imageUrl: imageUrl, date: date))
         }
 
         return result

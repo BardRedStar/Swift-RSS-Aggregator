@@ -40,11 +40,11 @@
                                 <rect key="frame" x="8" y="72" width="398" height="656"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="RSSUITableViewCell" rowHeight="90" id="1Za-cB-gmR" customClass="RSSTableViewCell" customModule="RSSNews" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="28" width="398" height="90"/>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="RSSUITableViewCell" rowHeight="113" id="1Za-cB-gmR" customClass="RSSTableViewCell" customModule="RSSNews" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="28" width="398" height="113"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="1Za-cB-gmR" id="UyJ-XX-K5I">
-                                            <rect key="frame" x="0.0" y="0.0" width="398" height="89.666666666666671"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="398" height="112.66666666666667"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Title" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="o7c-Zy-mkG">
@@ -69,15 +69,24 @@
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Time" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XMN-d8-67n">
+                                                    <rect key="frame" x="358" y="72.333333333333329" width="32" height="17"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                    <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
                                             </subviews>
                                             <constraints>
+                                                <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="XMN-d8-67n" secondAttribute="bottom" constant="8" id="20m-Us-ZyU"/>
+                                                <constraint firstItem="XMN-d8-67n" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="UyJ-XX-K5I" secondAttribute="leading" constant="8" id="CZT-4E-xTz"/>
                                                 <constraint firstItem="LXM-Jr-5uk" firstAttribute="leading" secondItem="UyJ-XX-K5I" secondAttribute="leading" constant="8" id="GeA-rR-8aA"/>
                                                 <constraint firstItem="IFO-SX-5xL" firstAttribute="top" secondItem="o7c-Zy-mkG" secondAttribute="bottom" constant="8" id="K9i-tA-08p"/>
                                                 <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="LXM-Jr-5uk" secondAttribute="bottom" constant="8" id="Myx-CS-sVP"/>
                                                 <constraint firstAttribute="trailing" secondItem="IFO-SX-5xL" secondAttribute="trailing" constant="8" id="QrZ-m5-WiW"/>
                                                 <constraint firstItem="o7c-Zy-mkG" firstAttribute="top" secondItem="UyJ-XX-K5I" secondAttribute="top" constant="8" id="SmN-Pd-vck"/>
                                                 <constraint firstItem="o7c-Zy-mkG" firstAttribute="leading" secondItem="LXM-Jr-5uk" secondAttribute="trailing" constant="8" id="Van-7V-rdu"/>
-                                                <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="IFO-SX-5xL" secondAttribute="bottom" constant="8" id="caE-0M-00T"/>
+                                                <constraint firstItem="XMN-d8-67n" firstAttribute="top" secondItem="IFO-SX-5xL" secondAttribute="bottom" constant="8" id="Wbq-0C-uvd"/>
+                                                <constraint firstAttribute="trailing" secondItem="XMN-d8-67n" secondAttribute="trailing" constant="8" id="jj9-Vn-Zc5"/>
                                                 <constraint firstItem="LXM-Jr-5uk" firstAttribute="top" secondItem="UyJ-XX-K5I" secondAttribute="top" constant="8" id="nrM-nz-QKk"/>
                                                 <constraint firstAttribute="trailing" secondItem="o7c-Zy-mkG" secondAttribute="trailing" constant="8" id="qAH-tY-tt6"/>
                                                 <constraint firstItem="IFO-SX-5xL" firstAttribute="leading" secondItem="LXM-Jr-5uk" secondAttribute="trailing" constant="8" id="rbY-K8-gKi"/>
@@ -85,6 +94,7 @@
                                         </tableViewCellContentView>
                                         <connections>
                                             <outlet property="contentLabel" destination="IFO-SX-5xL" id="ZbV-yl-ZM8"/>
+                                            <outlet property="dateLabel" destination="XMN-d8-67n" id="da0-jm-KnJ"/>
                                             <outlet property="newsImageView" destination="LXM-Jr-5uk" id="wPH-5f-jxb"/>
                                             <outlet property="titleLabel" destination="o7c-Zy-mkG" id="AMc-Fe-AuY"/>
                                         </connections>

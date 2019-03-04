@@ -102,13 +102,10 @@ class CacheRepository {
 
                     /// Get elapsed time interval
                     let resource = try imageURL.resourceValues(forKeys: [URLResourceKey.creationDateKey])
-                    let interval = calendar.dateComponents([Calendar.Component.day,
-                                                            Calendar.Component.hour,
-                                                            Calendar.Component.minute,
-                                                            Calendar.Component.second], from: resource.creationDate!, to: Date())
+                    let interval = DateTimeManager.getIntervalBetweenDatesWithDayPrecision(calendar: calendar, from: resource.creationDate!, to: Date())
 
                     /// Delete image file if time limit exceeded
-                    if interval.minute! > Constants.imageCacheFileLifeDurationDays {
+                    if interval.day! > Constants.imageCacheFileLifeDurationDays {
                         try fileManager.removeItem(at: imageURL)
                     }
                 }
