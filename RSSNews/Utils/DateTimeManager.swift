@@ -9,8 +9,18 @@
 import Foundation
 import UIKit
 
+
+/// A class to date time operations
 class DateTimeManager {
 
+    
+    /// Gets interval between two date objects with day precision
+    ///
+    /// - Parameters:
+    ///   - calendar: Calendar object
+    ///   - date1: First date to count from
+    ///   - date2: Second date to count to
+    /// - Returns: Date components which contains time interval
     class func intervalBetweenDatesWithDayPrecision(calendar: Calendar, from date1: Date, to date2: Date) -> DateComponents {
         return calendar.dateComponents([Calendar.Component.day,
                                  Calendar.Component.hour,
@@ -19,6 +29,13 @@ class DateTimeManager {
                                        from: date1, to: date2)
     }
 
+    
+    /// Gets time in string elapsed from date object to current date-time
+    ///
+    /// - Parameters:
+    ///   - pastDate: Date to count from
+    ///   - calendar: Calendar object
+    /// - Returns: Date interval string
     class func elapsedTime(from pastDate: Date?, calendar: Calendar = Calendar.current) -> String {
 
         if pastDate == nil {
@@ -56,6 +73,11 @@ class DateTimeManager {
         }
     }
 
+    
+    /// Converts string formatted UTC time into date object
+    ///
+    /// - Parameter utcString: UTC String
+    /// - Returns: Date object of UTF string
     class func convertUTCStringToDateFormat(from utcString: String) -> Date? {
         let dateFormatter = DateFormatter()
         dateFormatter.locale = Locale.current
