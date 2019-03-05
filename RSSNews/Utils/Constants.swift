@@ -25,7 +25,7 @@ struct Constants {
     static let imageCacheFolderName = "images"
 
     /// Extension of image files in cache
-    static let imageFileExtension = ".jpg"
+    static let imageFileExtension = "jpg"
 
     /// Duration (in days) of image files holding in cache
     static let imageCacheFileLifeDurationDays = 31

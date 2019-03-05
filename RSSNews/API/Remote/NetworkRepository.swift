@@ -29,21 +29,21 @@ class NetworkRepository {
     ]
 
     /// Creates a HTTP request to API to get last news
-    func loadNewsFromSource(completionHandler handler: @escaping (NewsEntity?) -> Void) {
+    func loadNewsFromSource(completionHandler: @escaping (NewsEntity?) -> Void,
+                            errorHandler: @escaping (String) -> Void) {
 
         /// Request
         Alamofire.request(Constants.apiUrl, parameters: params, headers: headers)
             .validate()
-            .responseString { responseString -> Void in
-                switch responseString.result {
+            .responseData { responseData -> Void in
+                switch responseData.result {
                 case .success(let value):
 
-                    let newsEntity: NewsEntity? = try? JSONDecoder().decode(NewsEntity.self, from: Data(value.utf8))
-
-                    handler(newsEntity)
+                    let newsEntity: NewsEntity? = try? JSONDecoder().decode(NewsEntity.self, from: value)
+                    completionHandler(newsEntity)
 
                 case .failure(let error):
-                    print("Remote API error:", error, separator: " ")
+                   errorHandler(error.localizedDescription)
                 }
             }
     }
@@ -53,15 +53,17 @@ class NetworkRepository {
     /// - Parameters:
     ///   - imageUrl: URL to get image by
     ///   - completionHandler: Handler to get result asycronously
-    func getImageByUrl(url imageUrl: String, completionHandler handler: @escaping (Data) -> Void) {
+    func getImageByUrl(url imageUrl: String,
+                       completionHandler: @escaping (Data) -> Void,
+                       errorHandler: @escaping (String) -> Void) {
         Alamofire.request(imageUrl)
             .validate()
             .responseData { (response) in
                 switch response.result {
                 case .success(let data):
-                    handler(data)
+                    completionHandler(data)
                 case .failure(let error):
-                    print(error)
+                    errorHandler(error.localizedDescription)
                 }
             }
 

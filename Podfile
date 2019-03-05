@@ -5,8 +5,9 @@ target 'RSSNews' do
   
   use_frameworks!
 
-  pod 'Alamofire'
-  pod 'SwiftLint'
+  pod 'Alamofire', :path => '../'
+  pod 'SwiftLint', :path => '../'
+  pod 'Reusable', :path => '../'
   
 
   target 'RSSNewsTests' do

@@ -11,7 +11,7 @@ import UIKit
 
 class DateTimeManager {
 
-    class func getIntervalBetweenDatesWithDayPrecision(calendar: Calendar, from date1: Date, to date2: Date) -> DateComponents {
+    class func intervalBetweenDatesWithDayPrecision(calendar: Calendar, from date1: Date, to date2: Date) -> DateComponents {
         return calendar.dateComponents([Calendar.Component.day,
                                  Calendar.Component.hour,
                                  Calendar.Component.minute,
@@ -19,13 +19,18 @@ class DateTimeManager {
                                        from: date1, to: date2)
     }
 
-    class func getElapsedTime(from pastDate: Date) -> String {
+    class func elapsedTime(from pastDate: Date?, calendar: Calendar = Calendar.current) -> String {
 
-        let elapsedTime = getIntervalBetweenDatesWithDayPrecision(calendar: Calendar.current, from: pastDate, to: Date())
+        if pastDate == nil {
+            return "unknown"
+        }
+
+        let elapsedTime = intervalBetweenDatesWithDayPrecision(calendar: calendar, from: pastDate!, to: Date())
 
         if elapsedTime.day! > 0 || elapsedTime.hour! > 3 {
             let dateFormatter = DateFormatter()
             dateFormatter.locale = Locale.current
+            dateFormatter.timeZone = calendar.timeZone
             let format: String
             switch elapsedTime.day! {
             case 0:
@@ -38,7 +43,7 @@ class DateTimeManager {
                 format = "dd MMM yyyy"
             }
             dateFormatter.dateFormat = format
-            return dateFormatter.string(from: pastDate)
+            return dateFormatter.string(from: pastDate!)
 
         } else if elapsedTime.hour! > 0 && elapsedTime.hour! <= 3 {
             let literals = ["one", "two", "three"]
@@ -51,12 +56,12 @@ class DateTimeManager {
         }
     }
 
-    class func convertUTCStringToDateFormat(from utcString: String) -> Date {
+    class func convertUTCStringToDateFormat(from utcString: String) -> Date? {
         let dateFormatter = DateFormatter()
         dateFormatter.locale = Locale.current
         dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZ"
 
-        return dateFormatter.date(from: utcString)!
+        return dateFormatter.date(from: utcString)
     }
 
 }

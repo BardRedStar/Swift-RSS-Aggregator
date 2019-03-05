@@ -60,7 +60,6 @@ class MainPresenter: MainViewPresenter {
     /// Overriden protocol methods
 
     func onViewDidLoad() {
-        checkOutdatedImages()
         loadNewsFromRemote()
     }
 
@@ -93,6 +92,8 @@ class MainPresenter: MainViewPresenter {
             NetworkRepository.instance.getImageByUrl(url: imageUrl, completionHandler: { data in
                 cacheApiInstance.saveImageInCache(imageName: imageUrl, content: data)
                 handler(UIImage(data: data)!)
+            }, errorHandler: { errorMessage in
+                self.view.showErrorMessage(message: errorMessage)
             })
         }
     }
@@ -109,13 +110,14 @@ class MainPresenter: MainViewPresenter {
 
             if newsEntity != nil {
                 self.newsArray = NewsMapper.mapEntityToItemArray(entity: newsEntity!)
+            } else {
+                self.view.showErrorMessage(message: "Getting news error! Source is unavailable!")
             }
 
             self.view.updateNewsData()
+        }, errorHandler: { errorMessage in
+            self.view.showErrorMessage(message: errorMessage)
         })
     }
 
-    private func checkOutdatedImages() {
-        CacheRepository.instance.removeOutdatedImagesFromCache()
-    }
 }

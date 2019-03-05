@@ -7,16 +7,22 @@
 //
 
 import UIKit
+import Reusable
 
 /// A main view protocol to link actions with presenter
 protocol MainView: class {
 
     /// Updates the data in UITableView
     func updateNewsData()
+
+    /// Shows the error message in Toast
+    ///
+    /// - Parameter message: Message to show
+    func showErrorMessage(message: String)
 }
 
 /// A main class of application
-class MainViewController: UIViewController, MainView {
+class MainViewController: UIViewController, StoryboardBased {
 
     @IBOutlet private weak var newsTableView: UITableView!
 
@@ -63,6 +69,63 @@ class MainViewController: UIViewController, MainView {
             self.selectedImage!.isHidden = false
         }
     }
+
+    /// Shows message in Toast
+    ///
+    /// - Parameters:
+    ///   - message: Message string to show
+    ///   - duration: Toast lifetime
+    func showToast(message: String, duration: Double) {
+
+        let toastTextView = UITextView(frame: CGRect(x: 0, y: 0, width: self.view.frame.width / 1.2, height: 0))
+
+        toastTextView.backgroundColor = UIColor.black.withAlphaComponent(0.6)
+        toastTextView.textColor = UIColor.white
+        toastTextView.textAlignment = .center
+        toastTextView.text = message
+        toastTextView.frame.size.height = toastTextView.intrinsicContentSize.height
+        toastTextView.sizeToFit()
+
+        /// Put it to start position
+        toastTextView.frame.origin.x = self.view.frame.size.width / 2 - toastTextView.frame.size.width / 2
+        toastTextView.frame.origin.y = self.view.frame.size.height
+
+        /// Set opacity and corner bounds
+        toastTextView.alpha = 0.0
+        toastTextView.layer.cornerRadius = toastTextView.frame.size.height / 4
+        toastTextView.clipsToBounds = true
+
+        self.view.addSubview(toastTextView)
+        UIView.animate(withDuration: 0.7, delay: 0.1, options: .curveEaseInOut, animations: {
+
+            toastTextView.alpha += 1.0
+            toastTextView.frame.origin.y -= self.view.frame.size.height / 15 + toastTextView.frame.size.height
+
+        }, completion: { isCompleted in
+
+            UIView.animate(withDuration: 0.7, delay: duration, options: .curveEaseInOut, animations: {
+
+                toastTextView.alpha -= 1.0
+                toastTextView.frame.origin.y += self.view.frame.size.height / 10 + toastTextView.frame.size.height
+
+            }, completion: { isCompleted in
+                toastTextView.removeFromSuperview()
+            })
+        })
+
+    }
+}
+
+/// A MVP interface implementation
+extension MainViewController: MainView {
+
+    func updateNewsData() {
+        newsTableView.reloadData()
+    }
+
+    func showErrorMessage(message: String) {
+        showToast(message: message, duration: 2.0)
+    }
 }
 
 /// An extension for viewcontroller class to use table view
@@ -73,8 +136,7 @@ extension MainViewController: UITableViewDataSource, UIGestureRecognizerDelegate
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: Constants.tableViewCellIdentifier,
-                                                       for: indexPath) as? RSSTableViewCell
+        guard let cell = tableView.dequeueReusableCell(for: indexPath) as RSSTableViewCell?
             else {
                 fatalError("This isn't a RSSUITableViewCell object!")
         }
@@ -93,17 +155,10 @@ extension MainViewController: UITableViewDataSource, UIGestureRecognizerDelegate
         return cell
     }
 
-    func updateNewsData() {
-        newsTableView.reloadData()
-    }
-
     @objc func didTapImageView(_ tap: UITapGestureRecognizer) {
         selectedImage = tap.view as? UIImageView
-        //present details view controller
-        guard let imageDetails = storyboard!.instantiateViewController(withIdentifier: Constants.fullImageViewControllerIdentifier)
-            as? FullImageViewController else {
-                fatalError("Controller initializing error!")
-        }
+
+        let imageDetails = FullImageViewController.instantiate()
         imageDetails.fullImageContent = selectedImage?.image
         imageDetails.transitioningDelegate = self
         present(imageDetails, animated: true, completion: nil)

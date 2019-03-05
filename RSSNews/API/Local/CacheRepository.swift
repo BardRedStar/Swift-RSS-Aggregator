@@ -39,7 +39,7 @@ class CacheRepository {
                 }
 
                 /// Save file
-                cacheURL.appendPathComponent(Cryptography.MD5(from: imageName) + Constants.imageFileExtension)
+                cacheURL.appendPathComponent(Cryptography.MD5(from: imageName) + "." + Constants.imageFileExtension)
                 fileManager.createFile(atPath: cacheURL.path, contents: content, attributes: nil)
 
             } catch {
@@ -53,7 +53,7 @@ class CacheRepository {
     /// - Parameter imageName: Image name
     /// - Returns: true if image exists and false otherwise
     func isImageExists(imageFileName imageName: String) -> Bool {
-        let imageUrl = FileManagerHelper.getCachedImageUrlByName(fileName: imageName, fileExtension: Constants.imageFileExtension)
+        let imageUrl = FileManagerHelper.cachedImageUrlByName(fileName: imageName, fileExtension: Constants.imageFileExtension)
         return FileManager.default.fileExists(atPath: imageUrl.path)
     }
 
@@ -66,7 +66,7 @@ class CacheRepository {
 
         /// Asyncronously get the image from cache
         DispatchQueue.global(qos: .utility).async {
-            let imageUrl = FileManagerHelper.getCachedImageUrlByName(
+            let imageUrl = FileManagerHelper.cachedImageUrlByName(
                 fileName: imageName,
                 fileExtension: Constants.imageFileExtension)
 
@@ -102,7 +102,8 @@ class CacheRepository {
 
                     /// Get elapsed time interval
                     let resource = try imageURL.resourceValues(forKeys: [URLResourceKey.creationDateKey])
-                    let interval = DateTimeManager.getIntervalBetweenDatesWithDayPrecision(calendar: calendar, from: resource.creationDate!, to: Date())
+                    let interval = DateTimeManager.intervalBetweenDatesWithDayPrecision(calendar: calendar,
+                                                                                           from: resource.creationDate!, to: Date())
 
                     /// Delete image file if time limit exceeded
                     if interval.day! > Constants.imageCacheFileLifeDurationDays {

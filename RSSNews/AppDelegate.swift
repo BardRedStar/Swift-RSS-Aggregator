@@ -21,7 +21,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 
     func applicationWillResignActive(_ application: UIApplication) {
-
+        CacheRepository.instance.removeOutdatedImagesFromCache()
     }
 
     func applicationDidEnterBackground(_ application: UIApplication) {

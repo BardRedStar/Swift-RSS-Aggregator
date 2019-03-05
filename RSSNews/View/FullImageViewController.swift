@@ -8,9 +8,12 @@
 
 import Foundation
 import UIKit
+import Reusable
 
 /// A controller class for full image showing
-class FullImageViewController: UIViewController, UIViewControllerTransitioningDelegate {
+class FullImageViewController: UIViewController, UIViewControllerTransitioningDelegate, StoryboardSceneBased {
+
+    static var sceneStoryboard = UIStoryboard(name: "Main", bundle: nil)
 
     @IBOutlet private weak var fullImageView: UIImageView!
 

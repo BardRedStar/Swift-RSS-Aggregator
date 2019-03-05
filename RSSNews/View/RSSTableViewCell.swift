@@ -7,8 +7,9 @@
 //
 
 import UIKit
+import Reusable
 
-class RSSTableViewCell: UITableViewCell {
+final class RSSTableViewCell: UITableViewCell, Reusable {
 
     @IBOutlet private weak var titleLabel: UILabel!
 

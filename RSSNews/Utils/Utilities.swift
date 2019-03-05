@@ -17,11 +17,11 @@ final class FileManagerHelper {
     ///   - fileName: File name
     ///   - fileExtension: File extension
     /// - Returns: URL of file
-    class func getCachedImageUrlByName(fileName: String, fileExtension: String) -> URL {
+    class func cachedImageUrlByName(fileName: String, fileExtension: String) -> URL {
         let fileManager = FileManager.default
         var fileUrl = fileManager.urls(for: .cachesDirectory, in: .userDomainMask).first!
         fileUrl.appendPathComponent(Constants.imageCacheFolderName, isDirectory: true)
-        fileUrl.appendPathComponent(fileName + fileExtension)
+        fileUrl.appendPathComponent(fileName + "." + fileExtension)
         return fileUrl
     }
 }

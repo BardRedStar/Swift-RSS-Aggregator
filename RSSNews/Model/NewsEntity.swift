@@ -9,14 +9,14 @@
 import Foundation
 
 /// A data-structure for parsing JSON response from news API
-public struct NewsEntity: Codable {
+struct NewsEntity: Codable {
     let status: String?
     let totalResults: Int?
     let articles: [Article]
 }
 
 /// A data-structure for parsing JSON response from news API
-public struct Article: Codable {
+struct Article: Codable {
     let source: Source
     let author, title, description: String?
     let url: String?
@@ -26,7 +26,7 @@ public struct Article: Codable {
 }
 
 /// A data-structure for parsing JSON response from news API
-public struct Source: Codable {
+struct Source: Codable {
     let id: String?
     let name: String?
 }

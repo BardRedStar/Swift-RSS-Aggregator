@@ -16,19 +16,18 @@ final class NewsMapper {
     /// - Parameter entity: Entity object
     /// - Returns: NewsItem objects array
     class func mapEntityToItemArray(entity: NewsEntity) -> [NewsItem] {
+        return entity.articles.compactMap({ article -> NewsItem? in
+            if let publushedAt = article.publishedAt {
+                let date = DateTimeManager.elapsedTime(from: DateTimeManager.convertUTCStringToDateFormat(from: publushedAt))
+                return NewsItem(title: article.title ?? "No title",
+                                content: article.description ?? "No description",
+                                imageUrl: article.urlToImage!,
+                                date: date)
 
-        var result: [NewsItem] = []
-
-        for article in entity.articles {
-
-            let title = article.title!
-            let content = article.description!
-            let imageUrl = article.urlToImage!
-            let date = DateTimeManager.getElapsedTime(from: DateTimeManager.convertUTCStringToDateFormat(from: article.publishedAt!))
-            result.append(NewsItem(title: title, content: content, imageUrl: imageUrl, date: date))
-        }
-
-        return result
+            } else {
+                return nil
+            }
+        })
     }
 
 }

@@ -9,7 +9,7 @@
 import Foundation
 
 /// A data-class for holding the news item information
-public struct NewsItem: Codable {
+struct NewsItem: Codable {
     var title: String
     var content: String
     var imageUrl: String

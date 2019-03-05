@@ -27,7 +27,7 @@
 		CEF178BD220ED99800332E84 /* RSSNews.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = CEF178BB220ED99800332E84 /* RSSNews.xcdatamodeld */; };
 		CEF178BF220ED99A00332E84 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CEF178BE220ED99A00332E84 /* Assets.xcassets */; };
 		CEF178C2220ED99A00332E84 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CEF178C0220ED99A00332E84 /* LaunchScreen.storyboard */; };
-		CEF178CD220ED99A00332E84 /* RSSNewsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEF178CC220ED99A00332E84 /* RSSNewsTests.swift */; };
+		CEF178CD220ED99A00332E84 /* DateTimeManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEF178CC220ED99A00332E84 /* DateTimeManagerTests.swift */; };
 		CEF178D8220ED99A00332E84 /* RSSNewsUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEF178D7220ED99A00332E84 /* RSSNewsUITests.swift */; };
 		CEF178EE220EF03500332E84 /* RSSTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEF178ED220EF03500332E84 /* RSSTableViewCell.swift */; };
 		CEF178F2220EF06000332E84 /* news.plist in Resources */ = {isa = PBXBuildFile; fileRef = CEF178F1220EF06000332E84 /* news.plist */; };
@@ -81,7 +81,7 @@
 		CEF178C1220ED99A00332E84 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		CEF178C3220ED99A00332E84 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		CEF178C8220ED99A00332E84 /* RSSNewsTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = RSSNewsTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		CEF178CC220ED99A00332E84 /* RSSNewsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RSSNewsTests.swift; sourceTree = "<group>"; };
+		CEF178CC220ED99A00332E84 /* DateTimeManagerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateTimeManagerTests.swift; sourceTree = "<group>"; };
 		CEF178CE220ED99A00332E84 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		CEF178D3220ED99A00332E84 /* RSSNewsUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = RSSNewsUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		CEF178D7220ED99A00332E84 /* RSSNewsUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RSSNewsUITests.swift; sourceTree = "<group>"; };
@@ -245,7 +245,7 @@
 		CEF178CB220ED99A00332E84 /* RSSNewsTests */ = {
 			isa = PBXGroup;
 			children = (
-				CEF178CC220ED99A00332E84 /* RSSNewsTests.swift */,
+				CEF178CC220ED99A00332E84 /* DateTimeManagerTests.swift */,
 				CEF178CE220ED99A00332E84 /* Info.plist */,
 			);
 			path = RSSNewsTests;
@@ -477,12 +477,14 @@
 			inputPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-RSSNews/Pods-RSSNews-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
+				"${BUILT_PRODUCTS_DIR}/Reusable/Reusable.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputFileListPaths = (
 			);
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Reusable.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -558,7 +560,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				CEF178CD220ED99A00332E84 /* RSSNewsTests.swift in Sources */,
+				CEF178CD220ED99A00332E84 /* DateTimeManagerTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
