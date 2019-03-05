@@ -43,14 +43,6 @@ struct Constants {
     /// Rss URL to get news by
     static let apiUrl = "https://newsapi.org/v2/top-headlines"
 
-    /// Identifiers
-
-    /// TableViewCell identifier
-    static let tableViewCellIdentifier = "RSSUITableViewCell"
-
-    /// FullImageViewController identifier
-    static let fullImageViewControllerIdentifier = "FullImageViewController"
-
     /// Output parameters
 
     /// Separator between print phrases
