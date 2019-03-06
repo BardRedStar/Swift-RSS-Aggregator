@@ -89,11 +89,14 @@ class MainPresenter: MainViewPresenter {
                 handler(data != nil ? UIImage(data: data!)! : UIImage(named: Constants.resourcesDefaultIconName)!)
             })
         } else {
-            NetworkRepository.instance.getImageByUrl(url: imageUrl, completionHandler: { data in
-                cacheApiInstance.saveImageInCache(imageName: imageUrl, content: data)
-                handler(UIImage(data: data)!)
-            }, errorHandler: { errorMessage in
-                self.view.showErrorMessage(message: errorMessage)
+            NetworkRepository.instance.getImageByUrl(url: imageUrl, completionHandler: { result in
+                switch result {
+                case .success(let value):
+                    cacheApiInstance.saveImageInCache(imageName: imageUrl, content: value)
+                    handler(UIImage(data: value)!)
+                case .failure(let error):
+                    self.view.showErrorMessage(message: error.localizedDescription)
+                }
             })
         }
     }
@@ -102,21 +105,26 @@ class MainPresenter: MainViewPresenter {
 
     /// Tries to load news from remote API
     private func loadNewsFromRemote() {
-        NetworkRepository.instance.loadNewsFromSource(completionHandler: { newsEntity in
+        NetworkRepository.instance.loadNewsFromSource(completionHandler: { result in
 
             /// Clear old data
             self.newsArray.removeAll()
             self.filteredNewsArray.removeAll()
 
-            if newsEntity != nil {
-                self.newsArray = NewsMapper.mapEntityToItemArray(entity: newsEntity!)
-            } else {
-                self.view.showErrorMessage(message: "Getting news error! Source is unavailable!")
+            switch result {
+            case .success(let value):
+                let newsEntity: NewsEntity? = try? JSONDecoder().decode(NewsEntity.self, from: value)
+
+                if newsEntity != nil {
+                    self.newsArray = NewsMapper.mapEntityToItemArray(entity: newsEntity!)
+                } else {
+                    self.view.showErrorMessage(message: "Getting news error! Source is unavailable!")
+                }
+            case .failure(let error):
+                self.view.showErrorMessage(message: error.localizedDescription)
             }
 
             self.view.updateNewsData()
-        }, errorHandler: { errorMessage in
-            self.view.showErrorMessage(message: errorMessage)
         })
     }
 

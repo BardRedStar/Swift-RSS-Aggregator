@@ -29,22 +29,13 @@ class NetworkRepository {
     ]
 
     /// Creates a HTTP request to API to get last news
-    func loadNewsFromSource(completionHandler: @escaping (NewsEntity?) -> Void,
-                            errorHandler: @escaping (String) -> Void) {
+    func loadNewsFromSource(completionHandler handler: @escaping (Result<Data>) -> Void) {
 
         /// Request
         Alamofire.request(Constants.apiUrl, parameters: params, headers: headers)
             .validate()
             .responseData { responseData -> Void in
-                switch responseData.result {
-                case .success(let value):
-
-                    let newsEntity: NewsEntity? = try? JSONDecoder().decode(NewsEntity.self, from: value)
-                    completionHandler(newsEntity)
-
-                case .failure(let error):
-                   errorHandler(error.localizedDescription)
-                }
+                handler(responseData.result)
             }
     }
 
@@ -54,17 +45,11 @@ class NetworkRepository {
     ///   - imageUrl: URL to get image by
     ///   - completionHandler: Handler to get result asycronously
     func getImageByUrl(url imageUrl: String,
-                       completionHandler: @escaping (Data) -> Void,
-                       errorHandler: @escaping (String) -> Void) {
+                       completionHandler handler: @escaping (Result<Data>) -> Void) {
         Alamofire.request(imageUrl)
             .validate()
             .responseData { (response) in
-                switch response.result {
-                case .success(let data):
-                    completionHandler(data)
-                case .failure(let error):
-                    errorHandler(error.localizedDescription)
-                }
+                handler(response.result)
             }
 
     }
