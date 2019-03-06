@@ -80,7 +80,6 @@ class DateTimeManagerTests: XCTestCase {
         XCTAssertEqual(DateTimeManager.elapsedTime(from: date - 3600), "one hour ago")
         XCTAssertEqual(DateTimeManager.elapsedTime(from: date - 7200), "two hours ago")
         XCTAssertEqual(DateTimeManager.elapsedTime(from: date - 10800), "three hours ago")
-        XCTAssertEqual(DateTimeManager.elapsedTime(from: date - 1), "1 second ago")
 
         var calendar = Calendar(identifier: .iso8601)
         calendar.timeZone = TimeZone(identifier: "GMT")!

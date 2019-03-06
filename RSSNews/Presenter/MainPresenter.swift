@@ -72,7 +72,7 @@ class MainPresenter: MainViewPresenter {
     }
 
     func updateFilteredNewsBySearchText(forSearchText searchText: String) {
-        filteredNewsArray.removeAll()
+        
         filteredNewsArray = newsArray.filter({(item: NewsItem) -> Bool in
             return item.title.lowercased().contains(searchText.lowercased()) || item.content.lowercased().contains(searchText.lowercased())
         })
@@ -106,10 +106,6 @@ class MainPresenter: MainViewPresenter {
     /// Tries to load news from remote API
     private func loadNewsFromRemote() {
         NetworkRepository.instance.loadNewsFromSource(completionHandler: { result in
-
-            /// Clear old data
-            self.newsArray.removeAll()
-            self.filteredNewsArray.removeAll()
 
             switch result {
             case .success(let value):
