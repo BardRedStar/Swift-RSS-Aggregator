@@ -6,6 +6,8 @@ target 'RSSNews' do
   use_frameworks!
 
   pod 'Alamofire'
+  pod 'SwiftLint'
+  pod 'Reusable'
   
 
   target 'RSSNewsTests' do
