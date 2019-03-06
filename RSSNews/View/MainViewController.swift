@@ -34,6 +34,8 @@ class MainViewController: UIViewController, StoryboardBased {
 
     private let transition = PopAnimator()
 
+    private var expandState: [Bool]!
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -50,6 +52,7 @@ class MainViewController: UIViewController, StoryboardBased {
     /// Sets up the table view
     private func setUpTableView() {
         newsTableView.dataSource = self
+        newsTableView.delegate = self
     }
 
     /// Sets up the search bar
@@ -120,6 +123,7 @@ class MainViewController: UIViewController, StoryboardBased {
 extension MainViewController: MainView {
 
     func updateNewsData() {
+        expandState = Array(repeating: false, count: mainViewPresenter.currentNewsCount(isFiltering: isDataFiltering()))
         newsTableView.reloadData()
     }
 
@@ -129,7 +133,7 @@ extension MainViewController: MainView {
 }
 
 /// An extension for viewcontroller class to use table view
-extension MainViewController: UITableViewDataSource, UIGestureRecognizerDelegate {
+extension MainViewController: UITableViewDataSource, UITableViewDelegate, UIGestureRecognizerDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return mainViewPresenter.currentNewsCount(isFiltering: isDataFiltering())
     }
@@ -147,12 +151,19 @@ extension MainViewController: UITableViewDataSource, UIGestureRecognizerDelegate
         cell.content = newsItem.content
         cell.date = newsItem.date
 
+        cell.isExpanded = expandState[indexPath.row]
+
         mainViewPresenter.newsImageByUrl(from: newsItem.imageUrl, completionHandler: { (image) in
             cell.imageContent = image
             cell.addImageGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(self.didTapImageView)))
         })
 
         return cell
+    }
+
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        expandState[indexPath.row] = !expandState[indexPath.row]
+        tableView.reloadRows(at: [indexPath], with: .fade)
     }
 
     @objc func didTapImageView(_ tap: UITapGestureRecognizer) {

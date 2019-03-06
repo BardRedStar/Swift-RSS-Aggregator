@@ -72,7 +72,7 @@ class MainPresenter: MainViewPresenter {
     }
 
     func updateFilteredNewsBySearchText(forSearchText searchText: String) {
-        
+
         filteredNewsArray = newsArray.filter({(item: NewsItem) -> Bool in
             return item.title.lowercased().contains(searchText.lowercased()) || item.content.lowercased().contains(searchText.lowercased())
         })

@@ -43,6 +43,18 @@ final class RSSTableViewCell: UITableViewCell, Reusable {
         }
     }
 
+    var isExpanded: Bool! = false {
+        didSet {
+            if isExpanded {
+                contentLabel.lineBreakMode = .byWordWrapping
+                contentLabel.numberOfLines = 0
+            } else {
+                contentLabel.lineBreakMode = .byTruncatingTail
+                contentLabel.numberOfLines = 1
+            }
+        }
+    }
+
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
