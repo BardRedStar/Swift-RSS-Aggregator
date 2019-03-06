@@ -9,11 +9,9 @@
 import Foundation
 import UIKit
 
-
 /// A class to date time operations
 class DateTimeManager {
 
-    
     /// Gets interval between two date objects with day precision
     ///
     /// - Parameters:
@@ -29,7 +27,6 @@ class DateTimeManager {
                                        from: date1, to: date2)
     }
 
-    
     /// Gets time in string elapsed from date object to current date-time
     ///
     /// - Parameters:
@@ -73,7 +70,6 @@ class DateTimeManager {
         }
     }
 
-    
     /// Converts string formatted UTC time into date object
     ///
     /// - Parameter utcString: UTC String

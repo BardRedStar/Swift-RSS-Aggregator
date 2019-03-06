@@ -44,7 +44,7 @@ class NetworkRepository {
     /// - Parameters:
     ///   - imageUrl: URL to get image by
     ///   - completionHandler: Handler to get result asycronously
-    func getImageByUrl(url imageUrl: String,
+    func imageByUrl(url imageUrl: String,
                        completionHandler handler: @escaping (Result<Data>) -> Void) {
         Alamofire.request(imageUrl)
             .validate()

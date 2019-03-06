@@ -62,7 +62,7 @@ class CacheRepository {
     /// - Parameters:
     ///   - imageName: Image name
     ///   - handler: Handler for getting result asynchronously
-    func getImageFromCache(imageFileName imageName: String, completionHandler handler: @escaping (Data?) -> Void) {
+    func imageFromCache(imageFileName imageName: String, completionHandler handler: @escaping (Data?) -> Void) {
 
         /// Asyncronously get the image from cache
         DispatchQueue.global(qos: .utility).async {

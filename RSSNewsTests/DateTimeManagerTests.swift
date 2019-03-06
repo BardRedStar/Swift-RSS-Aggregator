@@ -21,7 +21,6 @@ class DateTimeManagerTests: XCTestCase {
         // Put teardown code here. This method is called after the invocation of each test method in the class.
     }
 
-    
     /// Tests convertation of UTC format date to Date object
     func testConvertUTCStringToDateFormat() {
 

@@ -22,7 +22,7 @@ protocol MainViewPresenter {
     ///
     /// - Parameter isFiltering: Filtering state (true if the search bar is not empty, false otherwise)
     /// - Returns: Amount of news by typed filtering state
-    func getNewsCount(isFiltering: Bool) -> Int
+    func currentNewsCount(isFiltering: Bool) -> Int
 
     /// Gets news item by it's index in array
     ///
@@ -30,7 +30,7 @@ protocol MainViewPresenter {
     ///   - position: Index in current news array
     ///   - isFiltering: Filtering state (true if the search bar is not empty, false otherwise)
     /// - Returns: News item object by it's position (index)
-    func getNewsItemByIndex(position: Int, isFiltering: Bool) -> NewsItem
+    func newsItemByIndex(position: Int, isFiltering: Bool) -> NewsItem
 
     /// Filters news by search text including titles and content
     ///
@@ -42,7 +42,7 @@ protocol MainViewPresenter {
     /// - Parameters:
     ///   - imageUrl: URL adress of image
     ///   - completionHandler: Handler to get image when it will be completely loaded
-    func getNewsImage(from imageUrl: String, completionHandler handler: @escaping (UIImage) -> Void)
+    func newsImageByUrl(from imageUrl: String, completionHandler handler: @escaping (UIImage) -> Void)
 }
 
 /// A class for absorb business logic (according to MVP)
@@ -63,11 +63,11 @@ class MainPresenter: MainViewPresenter {
         loadNewsFromRemote()
     }
 
-    func getNewsCount(isFiltering: Bool) -> Int {
+    func currentNewsCount(isFiltering: Bool) -> Int {
         return isFiltering ? filteredNewsArray.count : newsArray.count
     }
 
-    func getNewsItemByIndex(position: Int, isFiltering: Bool) -> NewsItem {
+    func newsItemByIndex(position: Int, isFiltering: Bool) -> NewsItem {
         return isFiltering ? filteredNewsArray[position] : newsArray[position]
     }
 
@@ -79,17 +79,17 @@ class MainPresenter: MainViewPresenter {
         view.updateNewsData()
     }
 
-    func getNewsImage(from imageUrl: String, completionHandler handler: @escaping (UIImage) -> Void) {
+    func newsImageByUrl(from imageUrl: String, completionHandler handler: @escaping (UIImage) -> Void) {
 
         let name = Cryptography.MD5(from: imageUrl)
         let cacheApiInstance = CacheRepository.instance
 
         if cacheApiInstance.isImageExists(imageFileName: name) {
-            cacheApiInstance.getImageFromCache(imageFileName: name, completionHandler: { data in
+            cacheApiInstance.imageFromCache(imageFileName: name, completionHandler: { data in
                 handler(data != nil ? UIImage(data: data!)! : UIImage(named: Constants.resourcesDefaultIconName)!)
             })
         } else {
-            NetworkRepository.instance.getImageByUrl(url: imageUrl, completionHandler: { result in
+            NetworkRepository.instance.imageByUrl(url: imageUrl, completionHandler: { result in
                 switch result {
                 case .success(let value):
                     cacheApiInstance.saveImageInCache(imageName: imageUrl, content: value)

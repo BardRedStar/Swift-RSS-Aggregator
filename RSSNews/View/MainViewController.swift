@@ -131,7 +131,7 @@ extension MainViewController: MainView {
 /// An extension for viewcontroller class to use table view
 extension MainViewController: UITableViewDataSource, UIGestureRecognizerDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return mainViewPresenter.getNewsCount(isFiltering: isDataFiltering())
+        return mainViewPresenter.currentNewsCount(isFiltering: isDataFiltering())
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -141,13 +141,13 @@ extension MainViewController: UITableViewDataSource, UIGestureRecognizerDelegate
                 fatalError("This isn't a RSSUITableViewCell object!")
         }
 
-        let newsItem = mainViewPresenter.getNewsItemByIndex(position: indexPath.row, isFiltering: isDataFiltering())
+        let newsItem = mainViewPresenter.newsItemByIndex(position: indexPath.row, isFiltering: isDataFiltering())
 
         cell.title = newsItem.title
         cell.content = newsItem.content
         cell.date = newsItem.date
 
-        mainViewPresenter.getNewsImage(from: newsItem.imageUrl, completionHandler: { (image) in
+        mainViewPresenter.newsImageByUrl(from: newsItem.imageUrl, completionHandler: { (image) in
             cell.imageContent = image
             cell.addImageGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(self.didTapImageView)))
         })
