@@ -114,6 +114,9 @@ extension MainViewController: UITableViewDataSource, UITableViewDelegate, UIGest
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
 
+        let fullInfoDetails = FullInfoViewController.instantiate()
+        fullInfoDetails.infoNewsItem = mainViewPresenter.newsItemByIndex(position: indexPath.row, isFiltering: isDataFiltering())
+        self.navigationController!.pushViewController(fullInfoDetails, animated: true)
     }
 
     @objc func didTapImageView(_ tap: UITapGestureRecognizer) {

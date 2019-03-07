@@ -22,7 +22,10 @@ final class NewsMapper {
                 return NewsItem(title: article.title ?? "No title",
                                 content: article.description ?? "No description",
                                 imageUrl: article.urlToImage!,
-                                date: date)
+                                date: date,
+                                sourceUrl: article.url!,
+                                sourceName: article.source.name!,
+                                author: article.author!)
 
             } else {
                 return nil
