@@ -36,7 +36,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="apd-uG-C92">
+                            <tableView hidden="YES" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="apd-uG-C92">
                                 <rect key="frame" x="0.0" y="64" width="414" height="672"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -115,10 +115,10 @@
             </objects>
             <point key="canvasLocation" x="128.98550724637681" y="120.65217391304348"/>
         </scene>
-        <!--Full Info View Controller-->
+        <!--Post-->
         <scene sceneID="CZE-yr-3o9">
             <objects>
-                <viewController storyboardIdentifier="FullInfoViewController" id="gXe-Yx-Bya" customClass="FullInfoViewController" customModule="RSSNews" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="FullInfoViewController" title="Post" id="gXe-Yx-Bya" customClass="FullInfoViewController" customModule="RSSNews" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="ua5-tr-dXG">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -219,12 +219,17 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="gZD-Rl-qbc">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="gZD-Rl-qbc">
                                 <rect key="frame" x="0.0" y="20" width="414" height="716"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="gZD-Rl-qbc" secondAttribute="trailing" id="1v5-xI-oAn"/>
+                            <constraint firstItem="gZD-Rl-qbc" firstAttribute="bottom" secondItem="HRs-M1-bft" secondAttribute="bottom" id="E0p-4n-nm8"/>
+                            <constraint firstItem="gZD-Rl-qbc" firstAttribute="top" secondItem="HRs-M1-bft" secondAttribute="top" id="Pha-pL-6nS"/>
+                            <constraint firstItem="gZD-Rl-qbc" firstAttribute="leading" secondItem="QqU-HK-fnq" secondAttribute="leading" id="nNM-1L-NvD"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="HRs-M1-bft"/>
                     </view>
                     <connections>

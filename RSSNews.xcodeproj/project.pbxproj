@@ -14,6 +14,7 @@
 		CE1E64262226827200F3985F /* CacheRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE1E64252226827200F3985F /* CacheRepository.swift */; };
 		CE39851F2228E2EE0088651E /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE39851E2228E2EE0088651E /* Constants.swift */; };
 		CE47DEF82230B9B800645CF4 /* Toast.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE47DEF72230B9B800645CF4 /* Toast.swift */; };
+		CE47DEFA2231339000645CF4 /* LoaderAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE47DEF92231339000645CF4 /* LoaderAnimator.swift */; };
 		CE57E3A22227D1FE00EBB63F /* FullImageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE57E3A12227D1FE00EBB63F /* FullImageViewController.swift */; };
 		CE57E3A52227D2B900EBB63F /* PopAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE57E3A42227D2B900EBB63F /* PopAnimator.swift */; };
 		CE727CFE2223975900C9D596 /* MainPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE727CFD2223975900C9D596 /* MainPresenter.swift */; };
@@ -68,6 +69,7 @@
 		CE1E64252226827200F3985F /* CacheRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CacheRepository.swift; sourceTree = "<group>"; };
 		CE39851E2228E2EE0088651E /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		CE47DEF72230B9B800645CF4 /* Toast.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Toast.swift; sourceTree = "<group>"; };
+		CE47DEF92231339000645CF4 /* LoaderAnimator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoaderAnimator.swift; sourceTree = "<group>"; };
 		CE57E3A12227D1FE00EBB63F /* FullImageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FullImageViewController.swift; sourceTree = "<group>"; };
 		CE57E3A42227D2B900EBB63F /* PopAnimator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopAnimator.swift; sourceTree = "<group>"; };
 		CE727CFD2223975900C9D596 /* MainPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainPresenter.swift; sourceTree = "<group>"; };
@@ -167,6 +169,7 @@
 			isa = PBXGroup;
 			children = (
 				CE57E3A42227D2B900EBB63F /* PopAnimator.swift */,
+				CE47DEF92231339000645CF4 /* LoaderAnimator.swift */,
 			);
 			path = Animation;
 			sourceTree = "<group>";
@@ -595,6 +598,7 @@
 				CEAE3204222FE5F400D91026 /* FullInfoPresenter.swift in Sources */,
 				CEF178BD220ED99800332E84 /* RSSNews.xcdatamodeld in Sources */,
 				CEF178B5220ED99800332E84 /* AppDelegate.swift in Sources */,
+				CE47DEFA2231339000645CF4 /* LoaderAnimator.swift in Sources */,
 				CEAE3202222FCC1C00D91026 /* FullInfoViewController.swift in Sources */,
 				CE1E64262226827200F3985F /* CacheRepository.swift in Sources */,
 			);

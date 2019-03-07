@@ -77,6 +77,7 @@ class MainViewController: UIViewController, StoryboardBased {
 extension MainViewController: MainView {
 
     func updateNewsData() {
+        newsTableView.isHidden = false
         newsTableView.reloadData()
     }
 
