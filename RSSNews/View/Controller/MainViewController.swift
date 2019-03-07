@@ -163,7 +163,6 @@ extension MainViewController: UITableViewDataSource, UITableViewDelegate, UIGest
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         expandState[indexPath.row] = !expandState[indexPath.row]
-        tableView.reloadRows(at: [indexPath], with: .fade)
     }
 
     @objc func didTapImageView(_ tap: UITapGestureRecognizer) {
