@@ -34,8 +34,6 @@ class MainViewController: UIViewController, StoryboardBased {
 
     private let transition = PopAnimator()
 
-    private var expandState: [Bool]!
-
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -79,7 +77,6 @@ class MainViewController: UIViewController, StoryboardBased {
 extension MainViewController: MainView {
 
     func updateNewsData() {
-        expandState = Array(repeating: false, count: mainViewPresenter.currentNewsCount(isFiltering: isDataFiltering()))
         newsTableView.reloadData()
     }
 
@@ -107,8 +104,6 @@ extension MainViewController: UITableViewDataSource, UITableViewDelegate, UIGest
         cell.content = newsItem.content
         cell.date = newsItem.date
 
-        cell.isExpanded = expandState[indexPath.row]
-
         mainViewPresenter.newsImageByUrl(from: newsItem.imageUrl, completionHandler: { (image) in
             cell.imageContent = image
             cell.addImageGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(self.didTapImageView)))
@@ -118,7 +113,7 @@ extension MainViewController: UITableViewDataSource, UITableViewDelegate, UIGest
     }
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        expandState[indexPath.row] = !expandState[indexPath.row]
+
     }
 
     @objc func didTapImageView(_ tap: UITapGestureRecognizer) {
