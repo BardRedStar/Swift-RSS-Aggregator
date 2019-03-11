@@ -36,12 +36,22 @@ class FullInfoViewController: UIViewController, FullInfoView, StoryboardSceneBas
 
     private var fullInfoViewPresenter: FullInfoViewPresenter!
 
+    private let transition = PopAnimator()
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
         fullInfoViewPresenter = FullInfoPresenter(view: self)
 
+        setUpPopAnimation()
         setDefaultValues()
+    }
+
+    /// Sets up the pop animation
+    private func setUpPopAnimation() {
+        transition.dismissCompletion = {
+            self.infoNewsImageView.isHidden = false
+        }
     }
 
     private func setDefaultValues() {
@@ -51,6 +61,8 @@ class FullInfoViewController: UIViewController, FullInfoView, StoryboardSceneBas
         infoNewsDateLabel.text = infoNewsItem.date
         infoNewsAuthorLabel.text = "by " + infoNewsItem.author
         infoNewsSourceButton.setTitle("View on " + infoNewsItem.sourceName, for: UIControl.State.normal)
+
+        infoNewsImageView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(didTapImageView)))
 
         fullInfoViewPresenter.newsImageByUrl(from: infoNewsItem.imageUrl, completionHandler: { (image) in
             self.infoNewsImageView.image = image
@@ -82,4 +94,35 @@ class FullInfoViewController: UIViewController, FullInfoView, StoryboardSceneBas
     func showErrorMessage(message: String) {
         Toast.show(view: self.view, message: message, duration: 2.0)
     }
+
+    
+}
+
+extension FullInfoViewController: UIViewControllerTransitioningDelegate {
+    
+    func animationController(forPresented presented: UIViewController, presenting: UIViewController,
+                             source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+        
+        transition.originFrame = infoNewsImageView.superview!.convert(infoNewsImageView.frame, to: nil)
+        
+        transition.presenting = true
+        infoNewsImageView.isHidden = true
+        
+        return transition
+    }
+    
+    @objc func didTapImageView(_ tap: UITapGestureRecognizer) {
+        
+        let imageDetails = FullImageViewController.instantiate()
+        imageDetails.fullImageContent = self.infoNewsImageView.image
+        imageDetails.transitioningDelegate = self
+        present(imageDetails, animated: true, completion: nil)
+    }
+    
+    func animationController(forDismissed dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+        
+        transition.presenting = false
+        return transition
+    }
+    
 }

@@ -11,13 +11,22 @@ import UIKit
 import Reusable
 
 /// A controller class for full image showing
-class FullImageViewController: UIViewController, UIViewControllerTransitioningDelegate, StoryboardSceneBased {
+class FullImageViewController: UIViewController, UIViewControllerTransitioningDelegate, UIScrollViewDelegate, StoryboardSceneBased {
 
     static var sceneStoryboard = UIStoryboard(name: "Main", bundle: nil)
 
     @IBOutlet private weak var fullImageView: UIImageView!
+    @IBOutlet private weak var scrollView: UIScrollView!
 
     weak var fullImageContent: UIImage?
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+
+        scrollView.minimumZoomScale = 1.0
+        scrollView.maximumZoomScale = 6.0
+        scrollView.delegate = self
+    }
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -33,5 +42,10 @@ class FullImageViewController: UIViewController, UIViewControllerTransitioningDe
 
     override var preferredStatusBarStyle: UIStatusBarStyle {
         return .lightContent
+    }
+
+    func viewForZooming(in scrollView: UIScrollView) -> UIView? {
+
+        return fullImageView
     }
 }

@@ -126,7 +126,7 @@
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="igl-ie-tIh">
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                                 <subviews>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="BOv-CM-ff8">
+                                    <imageView contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="BOv-CM-ff8">
                                         <rect key="frame" x="0.0" y="78.666666666666686" width="414" height="224"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="224" id="tzY-rc-0o0"/>
@@ -219,26 +219,40 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="gZD-Rl-qbc">
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qeM-dD-mqh">
                                 <rect key="frame" x="0.0" y="20" width="414" height="716"/>
-                            </imageView>
+                                <subviews>
+                                    <imageView contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="gZD-Rl-qbc">
+                                        <rect key="frame" x="0.0" y="0.0" width="414" height="716"/>
+                                    </imageView>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstItem="gZD-Rl-qbc" firstAttribute="leading" secondItem="qeM-dD-mqh" secondAttribute="leading" id="24v-rx-Y0J"/>
+                                    <constraint firstItem="gZD-Rl-qbc" firstAttribute="centerY" secondItem="qeM-dD-mqh" secondAttribute="centerY" id="7KN-Hh-3Jq"/>
+                                    <constraint firstItem="gZD-Rl-qbc" firstAttribute="top" secondItem="qeM-dD-mqh" secondAttribute="top" id="G4N-wR-rxf"/>
+                                    <constraint firstAttribute="bottom" secondItem="gZD-Rl-qbc" secondAttribute="bottom" id="MII-Mv-bLJ"/>
+                                    <constraint firstItem="gZD-Rl-qbc" firstAttribute="centerX" secondItem="qeM-dD-mqh" secondAttribute="centerX" id="al9-6w-Bau"/>
+                                    <constraint firstAttribute="trailing" secondItem="gZD-Rl-qbc" secondAttribute="trailing" id="scO-Di-rLn"/>
+                                </constraints>
+                            </scrollView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstAttribute="trailing" secondItem="gZD-Rl-qbc" secondAttribute="trailing" id="1v5-xI-oAn"/>
-                            <constraint firstItem="gZD-Rl-qbc" firstAttribute="bottom" secondItem="HRs-M1-bft" secondAttribute="bottom" id="E0p-4n-nm8"/>
-                            <constraint firstItem="gZD-Rl-qbc" firstAttribute="top" secondItem="HRs-M1-bft" secondAttribute="top" id="Pha-pL-6nS"/>
-                            <constraint firstItem="gZD-Rl-qbc" firstAttribute="leading" secondItem="QqU-HK-fnq" secondAttribute="leading" id="nNM-1L-NvD"/>
+                            <constraint firstItem="qeM-dD-mqh" firstAttribute="bottom" secondItem="HRs-M1-bft" secondAttribute="bottom" id="FPF-G3-CIt"/>
+                            <constraint firstItem="qeM-dD-mqh" firstAttribute="top" secondItem="HRs-M1-bft" secondAttribute="top" id="Lgz-kN-UoA"/>
+                            <constraint firstItem="qeM-dD-mqh" firstAttribute="leading" secondItem="QqU-HK-fnq" secondAttribute="leading" id="Nmq-ZR-CvQ"/>
+                            <constraint firstAttribute="trailing" secondItem="qeM-dD-mqh" secondAttribute="trailing" id="Zhq-zt-ckQ"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="HRs-M1-bft"/>
                     </view>
                     <connections>
                         <outlet property="fullImageView" destination="gZD-Rl-qbc" id="Fso-gc-UIc"/>
+                        <outlet property="scrollView" destination="qeM-dD-mqh" id="inh-UK-eia"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="d2z-4Z-wPh" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="129" y="802"/>
+            <point key="canvasLocation" x="128.98550724637681" y="801.35869565217399"/>
         </scene>
     </scenes>
     <resources>
