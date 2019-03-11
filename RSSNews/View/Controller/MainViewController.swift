@@ -34,6 +34,8 @@ class MainViewController: UIViewController, StoryboardBased {
 
     private let transition = PopAnimator()
 
+    private var refreshControl: UIRefreshControl!
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -42,9 +44,10 @@ class MainViewController: UIViewController, StoryboardBased {
         setUpTableView()
         setUpSearchBar()
         setUpPopAnimation()
+        setUpRefreshControl()
 
         // Geting data
-        mainViewPresenter.onViewDidLoad()
+        mainViewPresenter.loadData()
 
         LoaderAnimator.showLoader(view: self.view)
     }
@@ -73,6 +76,12 @@ class MainViewController: UIViewController, StoryboardBased {
         }
     }
 
+    private func setUpRefreshControl() {
+        refreshControl = UIRefreshControl()
+        refreshControl.addTarget(self, action: #selector(refreshDidPull), for: .valueChanged)
+        newsTableView.addSubview(refreshControl)
+    }
+
 }
 
 /// A MVP interface implementation
@@ -80,6 +89,7 @@ extension MainViewController: MainView {
 
     func updateNewsData() {
         LoaderAnimator.stopLoader()
+        refreshControl.endRefreshing()
         newsTableView.isHidden = false
         newsTableView.reloadData()
     }
@@ -130,6 +140,10 @@ extension MainViewController: UITableViewDataSource, UITableViewDelegate, UIGest
         imageDetails.fullImageContent = selectedImage?.image
         imageDetails.transitioningDelegate = self
         present(imageDetails, animated: true, completion: nil)
+    }
+
+    @objc func refreshDidPull(_ refreshControl: UIRefreshControl) {
+        mainViewPresenter.loadData()
     }
 }
 

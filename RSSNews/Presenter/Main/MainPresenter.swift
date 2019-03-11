@@ -16,7 +16,7 @@ protocol MainViewPresenter {
     init(view: MainView)
 
     /// Does actions after view has been initialized
-    func onViewDidLoad()
+    func loadData()
 
     /// Gets current news count depend on filtering state
     ///
@@ -59,7 +59,7 @@ class MainPresenter: MainViewPresenter {
 
     /// Overriden protocol methods
 
-    func onViewDidLoad() {
+    func loadData() {
         loadNewsFromRemote()
     }
 
