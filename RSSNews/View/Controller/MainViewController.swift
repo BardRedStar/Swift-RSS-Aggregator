@@ -45,6 +45,8 @@ class MainViewController: UIViewController, StoryboardBased {
 
         // Geting data
         mainViewPresenter.onViewDidLoad()
+
+        LoaderAnimator.showLoader(view: self.view)
     }
 
     /// Sets up the table view
@@ -77,6 +79,7 @@ class MainViewController: UIViewController, StoryboardBased {
 extension MainViewController: MainView {
 
     func updateNewsData() {
+        LoaderAnimator.stopLoader()
         newsTableView.isHidden = false
         newsTableView.reloadData()
     }
