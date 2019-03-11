@@ -9,16 +9,19 @@
 import Foundation
 import UIKit
 
+/// A class for creating loading animation
 class LoaderAnimator {
 
     private static var loaderView: UIView?
 
+    /// Move directions
     enum MoveDirection {
         case right
         case left
         case up
         case down
 
+        /// Calculated enum value
         var value: (x: Int, y: Int) {
             switch self {
             case .right:
@@ -33,17 +36,20 @@ class LoaderAnimator {
         }
     }
 
+    /// Shapes
     enum Shape {
         case circle
         case square
     }
 
+    /// Base colors
     enum Colors {
         case red
         case orange
         case blue
         case green
 
+        /// Calculated enum value
         var value: UIColor {
             switch self {
             case .red:
@@ -58,24 +64,32 @@ class LoaderAnimator {
         }
     }
 
+    /// Starts transform animation
+    ///
+    /// - Parameters:
+    ///   - direction: Direction to move loader view
+    ///   - shape: Shape to morph view
+    ///   - color: Color to set
+    ///   - completion: Completion handler
     class func startTransformation(direction: MoveDirection, shape: Shape, color: Colors, completion: @escaping (Bool) -> Void) {
-        UIView.animate(withDuration: 0.5, delay: 0.1, animations: {
+        UIView.animate(withDuration: Constants.loaderTransformDuration, delay: 0.0, animations: {
 
             switch shape {
             case .circle:
-                loaderView!.layer.cornerRadius += 10.0
+                loaderView!.layer.cornerRadius += Constants.loaderSize / 2
             case .square:
-                loaderView!.layer.cornerRadius -= 10.0
+                loaderView!.layer.cornerRadius -= Constants.loaderSize / 2
             }
 
-            loaderView!.frame.origin.x += CGFloat(direction.value.x * 20 * 2)
-            loaderView!.frame.origin.y += CGFloat(direction.value.y * 20 * 2)
+            loaderView!.frame.origin.x += Constants.loaderSize * 2.0 * CGFloat(direction.value.x)
+            loaderView!.frame.origin.y += Constants.loaderSize * 2.0 * CGFloat(direction.value.y)
 
             loaderView!.backgroundColor = color.value
 
         }, completion: completion)
     }
 
+    /// Emits the loader animation recursively
     class func startLoadingAnimation() {
         startTransformation(direction: .right, shape: .circle, color: .green, completion: { (isCompleted) in
             startTransformation(direction: .down, shape: .square, color: .orange, completion: { (isCompleted) in
@@ -88,6 +102,9 @@ class LoaderAnimator {
         })
     }
 
+    /// Creates loader view and animate it
+    ///
+    /// - Parameter view: View to attach loader
     class func showLoader(view: UIView) {
 
         let viewWidth = view.frame.size.width
@@ -96,7 +113,11 @@ class LoaderAnimator {
         if loaderView != nil {
             loaderView!.removeFromSuperview()
         }
-        loaderView = UIView(frame: CGRect(x: viewWidth / 2 - 20, y: viewHeight / 2 - 20, width: 20, height: 20))
+        loaderView = UIView(frame: CGRect(x: viewWidth / 2 - Constants.loaderSize,
+                                          y: viewHeight / 2 - Constants.loaderSize,
+                                          width: Constants.loaderSize,
+                                          height: Constants.loaderSize))
+
         loaderView!.backgroundColor = UIColor.red
 
         view.addSubview(loaderView!)
@@ -104,6 +125,7 @@ class LoaderAnimator {
         startLoadingAnimation()
     }
 
+    /// Stops (removes) loader
     class func stopLoader() {
         if loaderView != nil {
             loaderView!.removeFromSuperview()

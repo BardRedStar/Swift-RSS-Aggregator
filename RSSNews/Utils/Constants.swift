@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import UIKit
 
 /// A struct for holding useful constants
 struct Constants {
@@ -18,6 +19,15 @@ struct Constants {
 
     /// Delay before pop animation starts
     static let popAnimationDelay = 0.0
+
+    /// Toast duration
+    static let toastDuration = 2.0
+
+    /// Duration of the loader transform animation
+    static let loaderTransformDuration = 0.5
+
+    /// Loader shape size
+    static let loaderSize: CGFloat = 20.0
 
     /// Images and cache
 

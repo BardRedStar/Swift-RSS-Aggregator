@@ -85,7 +85,7 @@ extension MainViewController: MainView {
     }
 
     func showErrorMessage(message: String) {
-        Toast.show(view: self.view, message: message, duration: 2.0)
+        Toast.show(view: self.view, message: message, duration: Constants.toastDuration)
     }
 }
 
