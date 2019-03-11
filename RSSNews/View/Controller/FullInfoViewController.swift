@@ -10,12 +10,18 @@ import Foundation
 import UIKit
 import Reusable
 
+
+/// A protocol for linking actions with presenter
 protocol FullInfoView: class {
 
+    /// Shows the error message in Toast
+    ///
+    /// - Parameter message: Message to show
     func showErrorMessage(message: String)
 
 }
 
+/// A class for showing full news information
 class FullInfoViewController: UIViewController, FullInfoView, StoryboardSceneBased {
 
     static var sceneStoryboard = UIStoryboard(name: "Main", bundle: nil)
@@ -54,6 +60,7 @@ class FullInfoViewController: UIViewController, FullInfoView, StoryboardSceneBas
         }
     }
 
+    /// Sets default values to controls
     private func setDefaultValues() {
 
         infoNewsTitleLabel.text = infoNewsItem.title
@@ -69,6 +76,7 @@ class FullInfoViewController: UIViewController, FullInfoView, StoryboardSceneBas
         })
     }
 
+    /// Updates control constraints
     private func updateConstraints() {
         infoNewsTitleLabel.layoutIfNeeded()
         infoNewsContentLabel.layoutIfNeeded()
@@ -94,10 +102,9 @@ class FullInfoViewController: UIViewController, FullInfoView, StoryboardSceneBas
     func showErrorMessage(message: String) {
         Toast.show(view: self.view, message: message, duration: 2.0)
     }
-
-    
 }
 
+/// An extension for making the pop up animation
 extension FullInfoViewController: UIViewControllerTransitioningDelegate {
     
     func animationController(forPresented presented: UIViewController, presenting: UIViewController,
