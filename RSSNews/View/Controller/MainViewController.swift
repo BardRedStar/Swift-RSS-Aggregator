@@ -34,7 +34,7 @@ class MainViewController: UIViewController, StoryboardBased {
 
     private let transition = PopAnimator()
 
-    private var expandState: [Bool]!
+    private var refreshControl: UIRefreshControl!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -44,9 +44,12 @@ class MainViewController: UIViewController, StoryboardBased {
         setUpTableView()
         setUpSearchBar()
         setUpPopAnimation()
+        setUpRefreshControl()
 
         // Geting data
-        mainViewPresenter.onViewDidLoad()
+        mainViewPresenter.loadData()
+
+        LoaderAnimator.showLoader(view: self.view)
     }
 
     /// Sets up the table view
@@ -73,62 +76,26 @@ class MainViewController: UIViewController, StoryboardBased {
         }
     }
 
-    /// Shows message in Toast
-    ///
-    /// - Parameters:
-    ///   - message: Message string to show
-    ///   - duration: Toast lifetime
-    func showToast(message: String, duration: Double) {
-
-        let toastTextView = UITextView(frame: CGRect(x: 0, y: 0, width: self.view.frame.width / 1.2, height: 0))
-
-        toastTextView.backgroundColor = UIColor.black.withAlphaComponent(0.6)
-        toastTextView.textColor = UIColor.white
-        toastTextView.textAlignment = .center
-        toastTextView.text = message
-        toastTextView.frame.size.height = toastTextView.intrinsicContentSize.height
-        toastTextView.sizeToFit()
-
-        /// Put it to start position
-        toastTextView.frame.origin.x = self.view.frame.size.width / 2 - toastTextView.frame.size.width / 2
-        toastTextView.frame.origin.y = self.view.frame.size.height
-
-        /// Set opacity and corner bounds
-        toastTextView.alpha = 0.0
-        toastTextView.layer.cornerRadius = toastTextView.frame.size.height / 4
-        toastTextView.clipsToBounds = true
-
-        self.view.addSubview(toastTextView)
-        UIView.animate(withDuration: 0.7, delay: 0.1, options: .curveEaseInOut, animations: {
-
-            toastTextView.alpha += 1.0
-            toastTextView.frame.origin.y -= self.view.frame.size.height / 15 + toastTextView.frame.size.height
-
-        }, completion: { isCompleted in
-
-            UIView.animate(withDuration: 0.7, delay: duration, options: .curveEaseInOut, animations: {
-
-                toastTextView.alpha -= 1.0
-                toastTextView.frame.origin.y += self.view.frame.size.height / 10 + toastTextView.frame.size.height
-
-            }, completion: { isCompleted in
-                toastTextView.removeFromSuperview()
-            })
-        })
-
+    private func setUpRefreshControl() {
+        refreshControl = UIRefreshControl()
+        refreshControl.addTarget(self, action: #selector(refreshDidPull), for: .valueChanged)
+        newsTableView.addSubview(refreshControl)
     }
+
 }
 
 /// A MVP interface implementation
 extension MainViewController: MainView {
 
     func updateNewsData() {
-        expandState = Array(repeating: false, count: mainViewPresenter.currentNewsCount(isFiltering: isDataFiltering()))
+        LoaderAnimator.stopLoader()
+        refreshControl.endRefreshing()
+        newsTableView.isHidden = false
         newsTableView.reloadData()
     }
 
     func showErrorMessage(message: String) {
-        showToast(message: message, duration: 2.0)
+        Toast.show(view: self.view, message: message, duration: Constants.toastDuration)
     }
 }
 
@@ -151,8 +118,6 @@ extension MainViewController: UITableViewDataSource, UITableViewDelegate, UIGest
         cell.content = newsItem.content
         cell.date = newsItem.date
 
-        cell.isExpanded = expandState[indexPath.row]
-
         mainViewPresenter.newsImageByUrl(from: newsItem.imageUrl, completionHandler: { (image) in
             cell.imageContent = image
             cell.addImageGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(self.didTapImageView)))
@@ -162,8 +127,10 @@ extension MainViewController: UITableViewDataSource, UITableViewDelegate, UIGest
     }
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        expandState[indexPath.row] = !expandState[indexPath.row]
-        tableView.reloadRows(at: [indexPath], with: .fade)
+
+        let fullInfoDetails = FullInfoViewController.instantiate()
+        fullInfoDetails.infoNewsItem = mainViewPresenter.newsItemByIndex(position: indexPath.row, isFiltering: isDataFiltering())
+        self.navigationController!.pushViewController(fullInfoDetails, animated: true)
     }
 
     @objc func didTapImageView(_ tap: UITapGestureRecognizer) {
@@ -172,7 +139,14 @@ extension MainViewController: UITableViewDataSource, UITableViewDelegate, UIGest
         let imageDetails = FullImageViewController.instantiate()
         imageDetails.fullImageContent = selectedImage?.image
         imageDetails.transitioningDelegate = self
-        present(imageDetails, animated: true, completion: nil)
+        imageDetails.modalPresentationStyle = .overCurrentContext
+        present(imageDetails, animated: true, completion: {
+            self.selectedImage!.isHidden = false
+        })
+    }
+
+    @objc func refreshDidPull(_ refreshControl: UIRefreshControl) {
+        mainViewPresenter.loadData()
     }
 }
 

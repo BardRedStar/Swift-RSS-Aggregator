@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import UIKit
 
 /// A struct for holding useful constants
 struct Constants {
@@ -18,6 +19,24 @@ struct Constants {
 
     /// Delay before pop animation starts
     static let popAnimationDelay = 0.0
+
+    /// Maximum swipe velocity for removing full image
+    static let swipeImageMaximumVelocity: CGFloat = 2000.0
+
+    /// The part (in fractions) in which image will be closed if it's center reaches this zone
+    static let swipeImageCriticalPaddingZonePart = 0.2
+
+    /// Duration in seconds for bringing image back
+    static let swipeImageBackDuration = 0.5
+
+    /// Toast duration
+    static let toastDuration = 2.0
+
+    /// Duration of the loader transform animation
+    static let loaderTransformDuration = 0.5
+
+    /// Loader shape size
+    static let loaderSize: CGFloat = 20.0
 
     /// Images and cache
 

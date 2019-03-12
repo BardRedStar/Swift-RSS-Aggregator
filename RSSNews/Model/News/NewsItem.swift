@@ -14,14 +14,7 @@ struct NewsItem: Codable {
     var content: String
     var imageUrl: String
     var date: String
-
-    /// - Parameters:
-    ///   - title: News item title
-    ///   - content: News item content
-    init(title: String, content: String, imageUrl: String, date: String) {
-        self.title = title
-        self.content = content
-        self.imageUrl = imageUrl
-        self.date = date
-    }
+    var sourceUrl: String
+    var sourceName: String
+    var author: String
 }
