@@ -10,7 +10,6 @@ import Foundation
 import UIKit
 import Reusable
 
-
 /// A protocol for linking actions with presenter
 protocol FullInfoView: class {
 
@@ -106,30 +105,30 @@ class FullInfoViewController: UIViewController, FullInfoView, StoryboardSceneBas
 
 /// An extension for making the pop up animation
 extension FullInfoViewController: UIViewControllerTransitioningDelegate {
-    
+
     func animationController(forPresented presented: UIViewController, presenting: UIViewController,
                              source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
-        
+
         transition.originFrame = infoNewsImageView.superview!.convert(infoNewsImageView.frame, to: nil)
-        
+
         transition.presenting = true
         infoNewsImageView.isHidden = true
-        
+
         return transition
     }
-    
+
     @objc func didTapImageView(_ tap: UITapGestureRecognizer) {
-        
+
         let imageDetails = FullImageViewController.instantiate()
         imageDetails.fullImageContent = self.infoNewsImageView.image
         imageDetails.transitioningDelegate = self
         present(imageDetails, animated: true, completion: nil)
     }
-    
+
     func animationController(forDismissed dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
-        
+
         transition.presenting = false
         return transition
     }
-    
+
 }
