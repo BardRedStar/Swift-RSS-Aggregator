@@ -75,27 +75,13 @@ class FullInfoViewController: UIViewController, FullInfoView, StoryboardSceneBas
         })
     }
 
-    /// Updates control constraints
-    private func updateConstraints() {
-        infoNewsTitleLabel.layoutIfNeeded()
-        infoNewsContentLabel.layoutIfNeeded()
-        infoNewsDateLabel.layoutIfNeeded()
-        infoNewsAuthorLabel.layoutIfNeeded()
-        infoNewsSourceButton.layoutIfNeeded()
-        infoNewsImageView.layoutIfNeeded()
-    }
-
     @IBAction private func newsSourceButtonDidClick(_ sender: UIButton) {
 
         guard let url = URL(string: infoNewsItem.sourceUrl) else {
             return
         }
 
-        if #available(iOS 10.0, *) {
-            UIApplication.shared.open(url, options: [:], completionHandler: nil)
-        } else {
-            UIApplication.shared.openURL(url)
-        }
+        UIApplication.shared.open(url, options: [:], completionHandler: nil)
     }
 
     func showErrorMessage(message: String) {
