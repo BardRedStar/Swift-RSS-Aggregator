@@ -109,13 +109,16 @@ class MainPresenter: MainViewPresenter {
 
             switch result {
             case .success(let value):
-                let newsEntity: NewsEntity? = try? JSONDecoder().decode(NewsEntity.self, from: value)
-
-                if newsEntity != nil {
-                    self.newsArray = NewsMapper.mapEntityToItemArray(entity: newsEntity!)
-                } else {
+                do {
+                    let newsEntity: NewsEntity = try JSONDecoder().decode(NewsEntity.self, from: value)
+                    
+                    self.newsArray = NewsMapper.mapEntityToItemArray(entity: newsEntity)
+                }
+                catch {
                     self.view.showErrorMessage(message: "Getting news error! Source is unavailable!")
                 }
+
+                
             case .failure(let error):
                 self.view.showErrorMessage(message: error.localizedDescription)
             }
