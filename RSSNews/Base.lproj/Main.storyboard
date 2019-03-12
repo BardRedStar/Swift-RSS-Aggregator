@@ -157,7 +157,10 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="H1o-Va-t4g">
-                                        <rect key="frame" x="301" y="312.66666666666669" width="105" height="30"/>
+                                        <rect key="frame" x="301" y="312.66666666666669" width="105" height="44"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="44" id="g3x-Bj-3QB"/>
+                                        </constraints>
                                         <state key="normal" title="View full article"/>
                                         <connections>
                                             <action selector="newsSourceButtonDidClick:" destination="gXe-Yx-Bya" eventType="touchUpInside" id="7R2-ar-5Ca"/>
@@ -170,21 +173,21 @@
                                     <constraint firstItem="Rud-xx-fSV" firstAttribute="leading" secondItem="igl-ie-tIh" secondAttribute="leadingMargin" id="9ro-4S-ttd"/>
                                     <constraint firstItem="aox-wm-nC1" firstAttribute="leading" secondItem="igl-ie-tIh" secondAttribute="leading" constant="8" id="Coh-Fw-A56"/>
                                     <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="aox-wm-nC1" secondAttribute="trailing" constant="8" id="CxG-va-ShM"/>
-                                    <constraint firstAttribute="trailing" secondItem="H1o-Va-t4g" secondAttribute="trailing" constant="8" id="GUD-8U-dJU"/>
                                     <constraint firstItem="Rud-xx-fSV" firstAttribute="top" secondItem="igl-ie-tIh" secondAttribute="top" constant="22" id="Gjd-Dv-VVE"/>
                                     <constraint firstItem="aCG-PC-hln" firstAttribute="leading" secondItem="igl-ie-tIh" secondAttribute="leading" constant="8" id="Hhm-UG-8yx"/>
                                     <constraint firstItem="3nl-FZ-9JR" firstAttribute="top" secondItem="BOv-CM-ff8" secondAttribute="bottom" constant="18" id="Itr-I4-rND"/>
                                     <constraint firstAttribute="trailing" secondItem="aCG-PC-hln" secondAttribute="trailing" constant="8" id="KRS-gE-JTD"/>
                                     <constraint firstItem="BOv-CM-ff8" firstAttribute="leading" secondItem="igl-ie-tIh" secondAttribute="leading" id="KxU-b7-pUs"/>
-                                    <constraint firstItem="H1o-Va-t4g" firstAttribute="top" secondItem="BOv-CM-ff8" secondAttribute="bottom" constant="10" id="UW7-Tp-PUe"/>
                                     <constraint firstItem="Rud-xx-fSV" firstAttribute="leading" secondItem="igl-ie-tIh" secondAttribute="leading" constant="8" id="W0r-2d-7bX"/>
                                     <constraint firstAttribute="trailing" secondItem="Rud-xx-fSV" secondAttribute="trailing" constant="8" id="Z31-O9-tFN"/>
                                     <constraint firstItem="aCG-PC-hln" firstAttribute="top" secondItem="Rud-xx-fSV" secondAttribute="bottom" constant="8" symbolic="YES" id="Zou-42-sf4"/>
+                                    <constraint firstItem="H1o-Va-t4g" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="3nl-FZ-9JR" secondAttribute="trailing" constant="8" id="dd4-9v-NEL"/>
                                     <constraint firstItem="BOv-CM-ff8" firstAttribute="top" secondItem="aCG-PC-hln" secondAttribute="bottom" constant="8" symbolic="YES" id="e5I-Jd-pSI"/>
-                                    <constraint firstItem="H1o-Va-t4g" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="3nl-FZ-9JR" secondAttribute="trailing" constant="8" id="e6F-jM-kPm"/>
                                     <constraint firstItem="aox-wm-nC1" firstAttribute="top" secondItem="3nl-FZ-9JR" secondAttribute="bottom" constant="16" id="gHq-LA-5IK"/>
                                     <constraint firstItem="3nl-FZ-9JR" firstAttribute="leading" secondItem="igl-ie-tIh" secondAttribute="leading" constant="8" id="l14-CR-nMY"/>
                                     <constraint firstItem="BOv-CM-ff8" firstAttribute="width" secondItem="igl-ie-tIh" secondAttribute="width" id="q9s-PD-R8s"/>
+                                    <constraint firstItem="H1o-Va-t4g" firstAttribute="top" secondItem="BOv-CM-ff8" secondAttribute="bottom" constant="10" id="uVl-ue-CWn"/>
+                                    <constraint firstAttribute="trailing" secondItem="H1o-Va-t4g" secondAttribute="trailing" constant="8" id="wvY-5L-IwW"/>
                                 </constraints>
                             </scrollView>
                         </subviews>
