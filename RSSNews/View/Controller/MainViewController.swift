@@ -139,7 +139,10 @@ extension MainViewController: UITableViewDataSource, UITableViewDelegate, UIGest
         let imageDetails = FullImageViewController.instantiate()
         imageDetails.fullImageContent = selectedImage?.image
         imageDetails.transitioningDelegate = self
-        present(imageDetails, animated: true, completion: nil)
+        imageDetails.modalPresentationStyle = .overCurrentContext
+        present(imageDetails, animated: true, completion: {
+            self.selectedImage!.isHidden = false
+        })
     }
 
     @objc func refreshDidPull(_ refreshControl: UIRefreshControl) {

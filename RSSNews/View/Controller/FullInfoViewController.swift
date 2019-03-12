@@ -122,7 +122,9 @@ extension FullInfoViewController: UIViewControllerTransitioningDelegate {
         let imageDetails = FullImageViewController.instantiate()
         imageDetails.fullImageContent = self.infoNewsImageView.image
         imageDetails.transitioningDelegate = self
-        present(imageDetails, animated: true, completion: nil)
+        present(imageDetails, animated: true, completion: {
+            self.infoNewsImageView.isHidden = false
+        })
     }
 
     func animationController(forDismissed dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {

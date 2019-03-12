@@ -23,6 +23,8 @@ class FullImageViewController: UIViewController, UIViewControllerTransitioningDe
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        self.view.backgroundColor = UIColor.black
+
         scrollView.minimumZoomScale = 1.0
         scrollView.maximumZoomScale = 6.0
         scrollView.delegate = self
@@ -33,11 +35,43 @@ class FullImageViewController: UIViewController, UIViewControllerTransitioningDe
 
         fullImageView.image = fullImageContent
 
-        view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(didTapView(_:))))
+        fullImageView.addGestureRecognizer(UIPanGestureRecognizer(target: self, action: #selector(handlePan)))
     }
 
-    @IBAction private func didTapView(_ tap: UITapGestureRecognizer) {
-        presentingViewController?.dismiss(animated: true, completion: nil)
+
+    @objc func handlePan(recognizer: UIPanGestureRecognizer) {
+        let translation = recognizer.translation(in: self.view)
+        if let view = recognizer.view {
+
+            view.center.y += translation.y
+            self.view.alpha = 1.0 - abs(view.center.y - self.view.center.y) / self.view.center.y
+
+            if recognizer.state == .ended {
+
+                let location = recognizer.location(in: self.view)
+                print("\(location.y)")
+
+                let paddingZonePart = 0.2
+                let rect = self.view.frame
+                let padding = rect.size.height * CGFloat(paddingZonePart)
+
+                if view.center.y >= self.view.frame.height - padding || view.center.y <= padding {
+                    presentingViewController?.dismiss(animated: false, completion: nil)
+                }
+
+                if abs(recognizer.velocity(in: self.view).y) >= 2000 {
+                    presentingViewController?.dismiss(animated: false, completion: nil)
+                }
+
+                UIView.animate(withDuration: 0.5, delay: 0.0, options: .curveEaseOut, animations: {
+                    view.center.y = self.view.center.y
+                    self.view.alpha = 1.0
+                })
+
+            }
+
+            recognizer.setTranslation(CGPoint.zero, in: self.view)
+        }
     }
 
     override var preferredStatusBarStyle: UIStatusBarStyle {
