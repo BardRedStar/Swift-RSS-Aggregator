@@ -38,20 +38,20 @@ class FullImageViewController: UIViewController, UIViewControllerTransitioningDe
         fullImageView.addGestureRecognizer(UIPanGestureRecognizer(target: self, action: #selector(handlePan)))
     }
 
-
     @objc func handlePan(recognizer: UIPanGestureRecognizer) {
-        let translation = recognizer.translation(in: self.view)
+
         if let view = recognizer.view {
 
+            let translation = recognizer.translation(in: self.view)
+
+            /// Set translation
             view.center.y += translation.y
             self.view.alpha = 1.0 - abs(view.center.y - self.view.center.y) / self.view.center.y
 
             if recognizer.state == .ended {
 
-                let location = recognizer.location(in: self.view)
-                print("\(location.y)")
-
-                let paddingZonePart = 0.2
+                /// Check image center in padding critical bounds
+                let paddingZonePart = Constants.swipeImageCriticalPaddingZonePart
                 let rect = self.view.frame
                 let padding = rect.size.height * CGFloat(paddingZonePart)
 
@@ -59,15 +59,16 @@ class FullImageViewController: UIViewController, UIViewControllerTransitioningDe
                     presentingViewController?.dismiss(animated: false, completion: nil)
                 }
 
-                if abs(recognizer.velocity(in: self.view).y) >= 2000 {
+                /// Check maximum velocity
+                if abs(recognizer.velocity(in: self.view).y) >= Constants.swipeImageMaximumVelocity {
                     presentingViewController?.dismiss(animated: false, completion: nil)
                 }
 
-                UIView.animate(withDuration: 0.5, delay: 0.0, options: .curveEaseOut, animations: {
+                /// If view was not dismissed, bring it back to center
+                UIView.animate(withDuration: Constants.swipeImageBackDuration, delay: 0.0, options: .curveEaseOut, animations: {
                     view.center.y = self.view.center.y
                     self.view.alpha = 1.0
                 })
-
             }
 
             recognizer.setTranslation(CGPoint.zero, in: self.view)
