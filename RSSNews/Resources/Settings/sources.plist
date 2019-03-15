@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<array>
+	<dict>
+		<key>source_name</key>
+		<string>ABC News</string>
+		<key>source_id</key>
+		<string>abc-news</string>
+	</dict>
+	<dict>
+		<key>source_name</key>
+		<string>TechCrunch</string>
+		<key>source_id</key>
+		<string>techcrunch</string>
+	</dict>
+	<dict>
+		<key>source_name</key>
+		<string>BBC News</string>
+		<key>source_id</key>
+		<string>bbc-news</string>
+	</dict>
+	<dict>
+		<key>source_name</key>
+		<string>CNN</string>
+		<key>source_id</key>
+		<string>cnn</string>
+	</dict>
+	<dict>
+		<key>source_name</key>
+		<string>Google News</string>
+		<key>source_id</key>
+		<string>google-news</string>
+	</dict>
+	<dict>
+		<key>source_name</key>
+		<string>Lenta</string>
+		<key>source_id</key>
+		<string>lenta</string>
+	</dict>
+	<dict>
+		<key>source_name</key>
+		<string>RT</string>
+		<key>source_id</key>
+		<string>rt</string>
+	</dict>
+	<dict>
+		<key>source_name</key>
+		<string>Reddit</string>
+		<key>source_id</key>
+		<string>reddit-r-all</string>
+	</dict>
+	<dict>
+		<key>source_name</key>
+		<string>The Economist</string>
+		<key>source_id</key>
+		<string>the-economist</string>
+	</dict>
+	<dict>
+		<key>source_name</key>
+		<string>Hacker News</string>
+		<key>source_id</key>
+		<string>hacker-news</string>
+	</dict>
+	<dict>
+		<key>source_name</key>
+		<string>Fox Sports</string>
+		<key>source_id</key>
+		<string>fox-sports</string>
+	</dict>
+	<dict>
+		<key>source_name</key>
+		<string>Independent</string>
+		<key>source_id</key>
+		<string>independent</string>
+	</dict>
+	<dict>
+		<key>source_name</key>
+		<string>Marca</string>
+		<key>source_id</key>
+		<string>marca</string>
+	</dict>
+	<dict>
+		<key>source_name</key>
+		<string>National Geographic</string>
+		<key>source_id</key>
+		<string>national-geographic</string>
+	</dict>
+	<dict>
+		<key>source_name</key>
+		<string>News24</string>
+		<key>source_id</key>
+		<string>news24</string>
+	</dict>
+	<dict>
+		<key>source_name</key>
+		<string>MTV News</string>
+		<key>source_id</key>
+		<string>mtv-news</string>
+	</dict>
+	<dict>
+		<key>source_name</key>
+		<string>NBC News</string>
+		<key>source_id</key>
+		<string>nbc-news</string>
+	</dict>
+	<dict>
+		<key>source_name</key>
+		<string>Business Insider</string>
+		<key>source_id</key>
+		<string>business-insider</string>
+	</dict>
+</array>
+</plist>
