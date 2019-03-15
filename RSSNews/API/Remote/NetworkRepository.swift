@@ -18,10 +18,8 @@ class NetworkRepository {
     private init() {
     }
 
-    /// Hardcoded params
-    var params: [String: Any] = [
-        "sources": "techcrunch"
-    ]
+    /// Default params
+    var params: [String: Any] = ["sources":"techcrunch"]
 
     /// Hardcoded headers
     let headers: [String: String] = [
@@ -29,6 +27,10 @@ class NetworkRepository {
     ]
 
     /// Creates a HTTP request to API to get last news
+    ///
+    /// - Parameters:
+    ///   - source: Source ID of news source
+    ///   - completionHandler: Completion handler to throw result
     func loadNewsFromSource(source: String, completionHandler handler: @escaping (Result<Data>) -> Void) {
 
         params["sources"] = source

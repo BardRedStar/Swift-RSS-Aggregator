@@ -10,6 +10,7 @@ import Foundation
 import UIKit
 import Reusable
 
+/// A protocol for linking actions with presenter
 protocol SourcesView: class {
 
     /// Shows the error message in Toast
@@ -18,11 +19,13 @@ protocol SourcesView: class {
     func showErrorMessage(message: String)
 }
 
+/// A class for showing sources list
 class SourcesViewController: UITableViewController, SourcesView {
 
     private var sourcesViewPresenter: SourcesViewPresenter!
     private var sourceArray: [SourceItem] = []
 
+    /// Callback handler to call when source changes
     var sourceDidChangeHandler: (() -> Void)!
 
     override func viewDidLoad() {
@@ -37,6 +40,7 @@ class SourcesViewController: UITableViewController, SourcesView {
     }
 }
 
+/// An extension to implement UITableView methods
 extension SourcesViewController {
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -64,6 +68,7 @@ extension SourcesViewController {
     }
 }
 
+/// An extension for Reusable library
 extension SourcesViewController: StoryboardSceneBased {
     static var sceneStoryboard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
 }

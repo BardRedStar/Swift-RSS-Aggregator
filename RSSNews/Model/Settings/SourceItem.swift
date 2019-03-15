@@ -8,6 +8,8 @@
 
 import Foundation
 
+
+/// Data struct for holding the news source information
 struct SourceItem: Codable, Equatable {
     var sourceName: String?
     var sourceId: String?

@@ -78,12 +78,14 @@ class MainViewController: UIViewController, StoryboardBased {
         }
     }
 
+    /// Sets up the refresh control
     private func setUpRefreshControl() {
         refreshControl = UIRefreshControl()
         refreshControl.addTarget(self, action: #selector(refreshDidPull), for: .valueChanged)
         newsTableView.addSubview(refreshControl)
     }
 
+    /// Tries to load data
     private func attemptToLoadData() {
         newsTableView.isHidden = true
         LoaderAnimator.showLoader(view: self.view)

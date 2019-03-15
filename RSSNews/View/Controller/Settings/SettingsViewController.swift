@@ -10,11 +10,12 @@ import Foundation
 import UIKit
 import Reusable
 
+/// A protocol for linking actions with presenter
 protocol SettingsView: class {
-
 }
 
-class SettingsViewController: UITableViewController {
+/// A class for showing settings menu
+class SettingsViewController: UITableViewController, SettingsView {
 
     private var settingsViewPresenter: SettingsViewPresenter!
 
@@ -28,6 +29,7 @@ class SettingsViewController: UITableViewController {
 
 }
 
+/// An extension for implementing UITableView functions
 extension SettingsViewController {
 
     override func numberOfSections(in tableView: UITableView) -> Int {
@@ -72,8 +74,6 @@ extension SettingsViewController {
     }
 }
 
-extension SettingsViewController: SettingsView {
-}
-
+/// An extension for Reusable library
 extension SettingsViewController: StoryboardBased {
 }
