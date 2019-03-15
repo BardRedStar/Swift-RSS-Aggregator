@@ -202,6 +202,27 @@
 			path = Extensions;
 			sourceTree = "<group>";
 		};
+		CE393FC2223B596200395574 /* Default */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Default;
+			sourceTree = "<group>";
+		};
+		CE393FC3223B597000395574 /* Settings */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Settings;
+			sourceTree = "<group>";
+		};
+		CE393FC4223B59AD00395574 /* News */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = News;
+			sourceTree = "<group>";
+		};
 		CE4F88692238FCD00061BAC7 /* Settings */ = {
 			isa = PBXGroup;
 			children = (
@@ -249,6 +270,9 @@
 		CE727D0022239ED200C9D596 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				CE393FC4223B59AD00395574 /* News */,
+				CE393FC3223B597000395574 /* Settings */,
+				CE393FC2223B596200395574 /* Default */,
 			);
 			path = Images;
 			sourceTree = "<group>";
