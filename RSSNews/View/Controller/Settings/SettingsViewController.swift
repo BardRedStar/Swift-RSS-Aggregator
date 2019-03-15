@@ -46,6 +46,7 @@ extension SettingsViewController {
         cell.textLabel!.text = option.value
         cell.accessoryType = .disclosureIndicator
         cell.detailTextLabel?.text = settingsViewPresenter.chosenState(option: option)
+        cell.detailTextLabel?.textColor = UIColor.lightGray
 
         return cell
     }
