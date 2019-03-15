@@ -9,7 +9,7 @@
 import UIKit
 import Reusable
 
-final class RSSTableViewCell: UITableViewCell, Reusable {
+final class RSSTableViewCell: UITableViewCell {
 
     @IBOutlet private weak var titleLabel: UILabel!
 
