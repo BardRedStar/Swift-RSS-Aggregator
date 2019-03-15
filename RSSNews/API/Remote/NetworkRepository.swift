@@ -19,7 +19,7 @@ class NetworkRepository {
     }
 
     /// Hardcoded params
-    let params: [String: Any] = [
+    var params: [String: Any] = [
         "sources": "techcrunch"
     ]
 
@@ -29,7 +29,9 @@ class NetworkRepository {
     ]
 
     /// Creates a HTTP request to API to get last news
-    func loadNewsFromSource(completionHandler handler: @escaping (Result<Data>) -> Void) {
+    func loadNewsFromSource(source: String, completionHandler handler: @escaping (Result<Data>) -> Void) {
+
+        params["sources"] = source
 
         /// Request
         Alamofire.request(Constants.apiUrl, parameters: params, headers: headers)

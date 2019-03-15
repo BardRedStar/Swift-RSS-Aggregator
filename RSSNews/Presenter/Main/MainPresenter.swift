@@ -30,7 +30,7 @@ protocol MainViewPresenter {
     ///   - position: Index in current news array
     ///   - isFiltering: Filtering state (true if the search bar is not empty, false otherwise)
     /// - Returns: News item object by it's position (index)
-    func newsItemByIndex(position: Int, isFiltering: Bool) -> NewsItem
+    func newsItemByPosition(position: Int, isFiltering: Bool) -> NewsItem
 
     /// Filters news by search text including titles and content
     ///
@@ -43,6 +43,8 @@ protocol MainViewPresenter {
     ///   - imageUrl: URL adress of image
     ///   - completionHandler: Handler to get image when it will be completely loaded
     func newsImageByUrl(from imageUrl: String, completionHandler handler: @escaping (UIImage) -> Void)
+
+    func newsSourceName() -> String
 }
 
 /// A class for absorb business logic (according to MVP)
@@ -53,8 +55,12 @@ class MainPresenter: MainViewPresenter {
     private var newsArray: [NewsItem] = []
     private var filteredNewsArray: [NewsItem] = []
 
+    private var newsSourcesArray: [SourceItem]!
+
     required init(view: MainView) {
         self.view = view
+
+        loadSourcesList()
     }
 
     /// Overriden protocol methods
@@ -67,7 +73,7 @@ class MainPresenter: MainViewPresenter {
         return isFiltering ? filteredNewsArray.count : newsArray.count
     }
 
-    func newsItemByIndex(position: Int, isFiltering: Bool) -> NewsItem {
+    func newsItemByPosition(position: Int, isFiltering: Bool) -> NewsItem {
         return isFiltering ? filteredNewsArray[position] : newsArray[position]
     }
 
@@ -101,11 +107,25 @@ class MainPresenter: MainViewPresenter {
         }
     }
 
+    func newsSourceName() -> String {
+
+        let currentSourceName = UserDefaultsRepository.instance.stringProperty(forKey: SettingsSection.SourceSection.source.rawValue.lowercased())
+
+        let sourceItem = newsSourcesArray.first {
+            return $0.sourceName == currentSourceName
+        }
+        return sourceItem != nil ? (sourceItem!.sourceName ?? "Home") : "Home"
+    }
+
     /// Private presenter methods
 
     /// Tries to load news from remote API
     private func loadNewsFromRemote() {
-        NetworkRepository.instance.loadNewsFromSource(completionHandler: { result in
+
+        let sourceId = newsSourceId()
+
+        print(sourceId)
+        NetworkRepository.instance.loadNewsFromSource(source: sourceId, completionHandler: { result in
 
             switch result {
             case .success(let value):
@@ -123,6 +143,20 @@ class MainPresenter: MainViewPresenter {
 
             self.view.updateNewsData()
         })
+    }
+
+    private func loadSourcesList() {
+       newsSourcesArray = PropertyFileRepository.instance.sourcesFromPropertyList()
+    }
+
+    private func newsSourceId() -> String {
+        let currentSourceName = UserDefaultsRepository.instance.stringProperty(forKey: SettingsSection.SourceSection.source.rawValue.lowercased())
+
+        let sourceItem = newsSourcesArray.first {
+            return $0.sourceName == currentSourceName
+        }
+
+        return sourceItem != nil ? (sourceItem!.sourceId ?? "none") : "none"
     }
 
 }

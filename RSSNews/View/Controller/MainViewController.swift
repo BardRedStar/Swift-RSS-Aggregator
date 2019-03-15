@@ -41,13 +41,15 @@ class MainViewController: UIViewController, StoryboardBased {
 
         mainViewPresenter = MainPresenter(view: self)
 
+        navigationItem.title = mainViewPresenter.newsSourceName()
+
         setUpTableView()
         setUpSearchBar()
         setUpPopAnimation()
         setUpRefreshControl()
 
         // Geting data
-        mainViewPresenter.loadData()
+        attemptToLoadData()
 
         LoaderAnimator.showLoader(view: self.view)
     }
@@ -82,12 +84,18 @@ class MainViewController: UIViewController, StoryboardBased {
         newsTableView.addSubview(refreshControl)
     }
 
+    private func attemptToLoadData() {
+        newsTableView.isHidden = true
+        LoaderAnimator.showLoader(view: self.view)
+        mainViewPresenter.loadData()
+    }
 }
 
 /// A MVP interface implementation
 extension MainViewController: MainView {
 
     func updateNewsData() {
+        navigationItem.title = mainViewPresenter.newsSourceName()
         LoaderAnimator.stopLoader()
         refreshControl.endRefreshing()
         newsTableView.isHidden = false
@@ -112,7 +120,7 @@ extension MainViewController: UITableViewDataSource, UITableViewDelegate, UIGest
                 fatalError("This isn't a RSSUITableViewCell object!")
         }
 
-        let newsItem = mainViewPresenter.newsItemByIndex(position: indexPath.row, isFiltering: isDataFiltering())
+        let newsItem = mainViewPresenter.newsItemByPosition(position: indexPath.row, isFiltering: isDataFiltering())
 
         cell.title = newsItem.title
         cell.content = newsItem.content
@@ -129,7 +137,7 @@ extension MainViewController: UITableViewDataSource, UITableViewDelegate, UIGest
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
 
         let fullInfoDetails = FullInfoViewController.instantiate()
-        fullInfoDetails.infoNewsItem = mainViewPresenter.newsItemByIndex(position: indexPath.row, isFiltering: isDataFiltering())
+        fullInfoDetails.infoNewsItem = mainViewPresenter.newsItemByPosition(position: indexPath.row, isFiltering: isDataFiltering())
         self.navigationController!.pushViewController(fullInfoDetails, animated: true)
     }
 
@@ -146,7 +154,7 @@ extension MainViewController: UITableViewDataSource, UITableViewDelegate, UIGest
     }
 
     @objc func refreshDidPull(_ refreshControl: UIRefreshControl) {
-        mainViewPresenter.loadData()
+        attemptToLoadData()
     }
 }
 
