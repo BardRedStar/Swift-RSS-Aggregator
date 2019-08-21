@@ -64,42 +64,50 @@ class LoaderAnimator {
         }
     }
 
-    /// Starts transform animation
-    ///
-    /// - Parameters:
-    ///   - direction: Direction to move loader view
-    ///   - shape: Shape to morph view
-    ///   - color: Color to set
-    ///   - completion: Completion handler
-    class func startTransformation(direction: MoveDirection, shape: Shape, color: Colors, completion: @escaping (Bool) -> Void) {
-        UIView.animate(withDuration: Constants.loaderTransformDuration, delay: 0.0, animations: {
+    /// Initializes the loading animation using Keyframes
+    class func initLoadingAnimation() {
 
-            switch shape {
-            case .circle:
-                loaderView!.layer.cornerRadius += Constants.loaderSize / 2
-            case .square:
-                loaderView!.layer.cornerRadius -= Constants.loaderSize / 2
-            }
+        var animations: [CAKeyframeAnimation] = []
 
-            loaderView!.frame.origin.x += Constants.loaderSize * 2.0 * CGFloat(direction.value.x)
-            loaderView!.frame.origin.y += Constants.loaderSize * 2.0 * CGFloat(direction.value.y)
+        /// Change color
+        let colorKeyframeAnimation = CAKeyframeAnimation(keyPath: "backgroundColor")
+        colorKeyframeAnimation.values = [Colors.red.value.cgColor,
+                                         Colors.green.value.cgColor,
+                                         Colors.orange.value.cgColor,
+                                         Colors.blue.value.cgColor,
+                                         Colors.red.value.cgColor]
+        colorKeyframeAnimation.keyTimes = [0, 0.25, 0.5, 0.75, 1]
+        animations.append(colorKeyframeAnimation)
 
-            loaderView!.backgroundColor = color.value
+        /// Change shape
+        let shapeKeyframeAnimation = CAKeyframeAnimation(keyPath: "cornerRadius")
+        shapeKeyframeAnimation.values = [0.0, Constants.loaderSize / 2, 0.0, Constants.loaderSize / 2, 0.0]
+        shapeKeyframeAnimation.keyTimes = [0, 0.25, 0.5, 0.75, 1]
+        animations.append(shapeKeyframeAnimation)
 
-        }, completion: completion)
-    }
+        /// Change Position
+        let positionKeyframeAnimation = CAKeyframeAnimation(keyPath: "position")
+        let directions: [MoveDirection] = [.right, .down, .left, .up]
+        var currentPoint = loaderView!.frame.origin
+        var points: [CGPoint] = [currentPoint]
 
-    /// Emits the loader animation recursively
-    class func startLoadingAnimation() {
-        startTransformation(direction: .right, shape: .circle, color: .green, completion: { (isCompleted) in
-            startTransformation(direction: .down, shape: .square, color: .orange, completion: { (isCompleted) in
-                startTransformation(direction: .left, shape: .circle, color: .blue, completion: { (isCompleted) in
-                    startTransformation(direction: .up, shape: .square, color: .red, completion: { (isCompleted) in
-                        startLoadingAnimation()
-                    })
-                })
-            })
-        })
+        for direction in directions {
+            currentPoint.x += Constants.loaderSize * 2.0 * CGFloat(direction.value.x)
+            currentPoint.y += Constants.loaderSize * 2.0 * CGFloat(direction.value.y)
+            points.append(currentPoint)
+        }
+
+        positionKeyframeAnimation.values = points
+        positionKeyframeAnimation.keyTimes = [0, 0.25, 0.5, 0.75, 1]
+        animations.append(positionKeyframeAnimation)
+
+        /// Make group of keys and bind
+        let group = CAAnimationGroup()
+        group.animations = animations
+        group.duration = 1.5
+        group.repeatCount = 100
+        loaderView!.layer.add(group, forKey: "loaderAnimation")
+
     }
 
     /// Creates loader view and animate it
@@ -122,7 +130,8 @@ class LoaderAnimator {
 
         view.addSubview(loaderView!)
 
-        startLoadingAnimation()
+        initLoadingAnimation()
+
     }
 
     /// Stops (removes) loader

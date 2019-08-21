@@ -57,7 +57,7 @@ struct Constants {
     /// API
 
     /// API key from https://newsapi.org/
-    static let apiKey = "5592af9332c14f9080c0d9132bf1efee"
+    static let apiKey = "013db04630134ae0ad7fd66c47b6ad32"
 
     /// Rss URL to get news by
     static let apiUrl = "https://newsapi.org/v2/top-headlines"

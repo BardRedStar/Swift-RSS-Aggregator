@@ -77,8 +77,11 @@ class DateTimeManager {
     class func convertUTCStringToDateFormat(from utcString: String) -> Date? {
         let dateFormatter = DateFormatter()
         dateFormatter.locale = Locale.current
-        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZ"
-
+        if utcString.contains(".") {
+            dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSSSSSSSZ"
+        } else {
+            dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZ"
+        }
         return dateFormatter.date(from: utcString)
     }
 

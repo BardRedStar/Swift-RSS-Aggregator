@@ -9,13 +9,21 @@
 import Foundation
 import UIKit
 
+/// A protocol to implement full info screen presenter functions according to MVP architecture
 protocol FullInfoViewPresenter {
 
+    /// - Parameter view: Settings view to bind
     init(view: FullInfoView)
 
+    /// Asynchronously gets the image by URL
+    ///
+    /// - Parameters:
+    ///   - imageUrl: URL to image
+    ///   - completionHandler: Callback handler to get request result
     func newsImageByUrl(from imageUrl: String, completionHandler handler: @escaping (UIImage) -> Void)
 }
 
+/// A class for implementing full info screen presenter functions
 class FullInfoPresenter: FullInfoViewPresenter {
 
     unowned let view: FullInfoView
