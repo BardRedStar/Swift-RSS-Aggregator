@@ -15,7 +15,6 @@ protocol FullInfoViewPresenter {
     /// - Parameter view: Settings view to bind
     init(view: FullInfoView)
 
-    
     /// Asynchronously gets the image by URL
     ///
     /// - Parameters:
@@ -23,7 +22,6 @@ protocol FullInfoViewPresenter {
     ///   - completionHandler: Callback handler to get request result
     func newsImageByUrl(from imageUrl: String, completionHandler handler: @escaping (UIImage) -> Void)
 }
-
 
 /// A class for implementing full info screen presenter functions
 class FullInfoPresenter: FullInfoViewPresenter {

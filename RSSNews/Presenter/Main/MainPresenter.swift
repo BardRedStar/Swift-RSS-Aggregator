@@ -44,7 +44,6 @@ protocol MainViewPresenter {
     ///   - completionHandler: Handler to get image when it will be completely loaded
     func newsImageByUrl(from imageUrl: String, completionHandler handler: @escaping (UIImage) -> Void)
 
-    
     /// Gets name of the current news source
     ///
     /// - Returns: Source name string
@@ -122,7 +121,6 @@ class MainPresenter: MainViewPresenter {
         return sourceItem != nil ? (sourceItem!.sourceName ?? "Home") : "Home"
     }
 
-
     /// Tries to load news from remote API
     private func loadNewsFromRemote() {
 
@@ -149,13 +147,11 @@ class MainPresenter: MainViewPresenter {
         })
     }
 
-    
     /// Loads the sources list from property file
     private func loadSourcesList() {
        newsSourcesArray = PropertyFileRepository.instance.sourcesFromPropertyList()
     }
 
-    
     /// Gets the identifier of current news source
     ///
     /// - Returns: Source identifier string

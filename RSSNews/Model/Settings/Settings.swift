@@ -8,14 +8,12 @@
 
 import Foundation
 
-
 /// An protocol to indentify options from different sections
 protocol Option {
-    
+
     /// Gets string option value
     var value: String { get }
 }
-
 
 /// Enum for settings sections
 enum SettingsSection: String, CaseIterable {
@@ -25,7 +23,7 @@ enum SettingsSection: String, CaseIterable {
 
     /// Source section options list
     static let sourceSection = SourceSection.allCases
-    
+
     /// Gets options list of this section
     var options: [Option] {
         switch self {
@@ -34,12 +32,11 @@ enum SettingsSection: String, CaseIterable {
         }
     }
 
-    
     /// Source section enum
     ///
     /// - source: Name of the source option
     enum SourceSection: String, CaseIterable, Option {
-        
+
         /// Source option
         case source = "Source"
 
@@ -59,7 +56,6 @@ enum SettingsSection: String, CaseIterable {
         }
     }
 
-    
     /// CaseIterable initializer
     ///
     /// - Parameter index: index of section

@@ -128,10 +128,12 @@ extension MainViewController: UITableViewDataSource, UITableViewDelegate, UIGest
         cell.content = newsItem.content
         cell.date = newsItem.date
 
-        mainViewPresenter.newsImageByUrl(from: newsItem.imageUrl, completionHandler: { (image) in
-            cell.imageContent = image
-            cell.addImageGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(self.didTapImageView)))
-        })
+        if let imageUrl = newsItem.imageUrl {
+            mainViewPresenter.newsImageByUrl(from: imageUrl, completionHandler: { (image) in
+                cell.imageContent = image
+                cell.addImageGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(self.didTapImageView)))
+            })
+        }
 
         return cell
     }

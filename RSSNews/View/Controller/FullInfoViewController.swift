@@ -70,9 +70,11 @@ class FullInfoViewController: UIViewController, FullInfoView, StoryboardSceneBas
 
         infoNewsImageView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(didTapImageView)))
 
-        fullInfoViewPresenter.newsImageByUrl(from: infoNewsItem.imageUrl, completionHandler: { (image) in
-            self.infoNewsImageView.image = image
-        })
+        if let imageUrl = infoNewsItem.imageUrl {
+            fullInfoViewPresenter.newsImageByUrl(from: imageUrl, completionHandler: { (image) in
+                self.infoNewsImageView.image = image
+            })
+        }
     }
 
     @IBAction private func newsSourceButtonDidClick(_ sender: UIButton) {

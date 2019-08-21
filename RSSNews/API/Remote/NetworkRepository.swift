@@ -19,7 +19,7 @@ class NetworkRepository {
     }
 
     /// Default params
-    var params: [String: Any] = ["sources":"techcrunch"]
+    var params: [String: Any] = ["sources": "techcrunch"]
 
     /// Hardcoded headers
     let headers: [String: String] = [
@@ -34,7 +34,8 @@ class NetworkRepository {
     func loadNewsFromSource(source: String, completionHandler handler: @escaping (Result<Data>) -> Void) {
 
         params["sources"] = source
-
+        params["apiKey"] = Constants.apiKey
+        print(params)
         /// Request
         Alamofire.request(Constants.apiUrl, parameters: params, headers: headers)
             .validate()

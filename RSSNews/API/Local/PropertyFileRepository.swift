@@ -17,7 +17,6 @@ class PropertyFileRepository {
     private init() {
     }
 
-    
     /// Gets sources list from sources property file
     ///
     /// - Returns: List of sources from file or nil if parsing error occured

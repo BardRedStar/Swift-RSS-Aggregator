@@ -21,7 +21,7 @@ final class NewsMapper {
                 let date = DateTimeManager.elapsedTime(from: DateTimeManager.convertUTCStringToDateFormat(from: publushedAt))
                 return NewsItem(title: article.title ?? "No title",
                                 content: article.description ?? "No description",
-                                imageUrl: article.urlToImage!,
+                                imageUrl: article.urlToImage,
                                 date: date,
                                 sourceUrl: sourceUrl,
                                 sourceName: article.source.name ?? "Unknown",

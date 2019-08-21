@@ -17,7 +17,6 @@ class UserDefaultsRepository {
     private init() {
     }
 
-    
     /// Gets string property by key
     ///
     /// - Parameter key: Key to get property
@@ -26,7 +25,6 @@ class UserDefaultsRepository {
         return UserDefaults.standard.string(forKey: key)
     }
 
-    
     /// Gets string properties list by keys list
     ///
     /// - Parameter key: Keys list
@@ -37,7 +35,6 @@ class UserDefaultsRepository {
         })
     }
 
-    
     /// Saves string property in UserDefaults by key
     ///
     /// - Parameters:
@@ -47,7 +44,6 @@ class UserDefaultsRepository {
         UserDefaults.standard.set(value, forKey: key)
     }
 
-    
     /// Saves string properties dictionary in UserDefaults by keys
     ///
     /// - Parameter dictionary: Properties dictionary to save

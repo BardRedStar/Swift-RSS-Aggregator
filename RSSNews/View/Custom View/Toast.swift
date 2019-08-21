@@ -42,16 +42,16 @@ class Toast {
         UIView.animate(withDuration: 0.7, delay: 0.1, options: .curveEaseInOut, animations: {
 
             toastTextView.alpha = 1.0
-            toastTextView.frame.origin.y -= view.frame.size.height / 15 + toastTextView.frame.size.height
+            toastTextView.frame.origin.y -= view.frame.size.height / 10 + toastTextView.frame.size.height
 
-        }, completion: { isCompleted in
+        }, completion: { _ in
 
             UIView.animate(withDuration: 0.7, delay: duration, options: .curveEaseInOut, animations: {
 
                 toastTextView.alpha = 1.0
                 toastTextView.frame.origin.y += view.frame.size.height / 10 + toastTextView.frame.size.height
 
-            }, completion: { isCompleted in
+            }, completion: { _ in
                 toastTextView.removeFromSuperview()
             })
         })

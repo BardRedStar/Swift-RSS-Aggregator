@@ -12,7 +12,7 @@ import Foundation
 struct NewsItem: Codable {
     var title: String
     var content: String
-    var imageUrl: String
+    var imageUrl: String?
     var date: String
     var sourceUrl: String
     var sourceName: String
