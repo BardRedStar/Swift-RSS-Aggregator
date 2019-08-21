@@ -10,10 +10,10 @@ News reading have never been so comfortable. RSS Aggregator supports 18 news sou
 
 ## Preview
 <p float="left">
-<img src="Screenshots/news.png" alt="alt text" width="200" height="356">   
-<img src="Screenshots/post_info.png" alt="alt text" width="200" height="356">   
-<img src="Screenshots/settings.png" alt="alt text" width="200" height="356">    
-<img src="Screenshots/sources.png" alt="alt text" width="200" height="356">   
+<img src="Screenshots/news.png" alt="alt text" width="200" height="400">   
+<img src="Screenshots/post_info.png" alt="alt text" width="200" height="400">   
+<img src="Screenshots/settings.png" alt="alt text" width="200" height="400">    
+<img src="Screenshots/sources.png" alt="alt text" width="200" height="400">   
 </p>
 
 # Requirements
