@@ -72,3 +72,5 @@ fastlane/test_output
 .DS_Store
 
 .swiftlint.yml.*
+
+R.generated.swift
