@@ -42,15 +42,16 @@ class FullInfoPresenter: FullInfoViewPresenter {
                 handler(data != nil ? UIImage(data: data!)! : UIImage(named: Constants.resourcesDefaultIconName)!)
             })
         } else {
-            NetworkRepository.instance.imageByUrl(url: imageUrl, completionHandler: { result in
-                switch result {
-                case .success(let value):
-                    cacheApiInstance.saveImageInCache(imageName: imageUrl, content: value)
-                    handler(UIImage(data: value)!)
-                case .failure(let error):
-                    self.view.showErrorMessage(message: error.localizedDescription)
-                }
-            })
+            NetworkRepository.instance.imageByUrl(url: imageUrl)
+//            , completionHandler: { result in
+//                switch result {
+//                case .success(let value):
+//                    cacheApiInstance.saveImageInCache(imageName: imageUrl, content: value)
+//                    handler(UIImage(data: value)!)
+//                case .failure(let error):
+//                    self.view.showErrorMessage(message: error.localizedDescription)
+//                }
+//            })
         }
     }
 

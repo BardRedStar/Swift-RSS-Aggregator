@@ -36,15 +36,8 @@ class NetworkRepository {
 
         params["sources"] = source
         params["apiKey"] = Constants.apiKey
-        print(params)
         /// Request
         AF.request(Constants.apiUrl, method: .get, parameters: params).validate().publishData()
-
-        AF.request(Constants.apiUrl, parameters: params, headers: headers)
-            .validate()
-            .responseData { responseData -> Void in
-                handler(responseData.result)
-            }
     }
 
     /// Gets image by URL
@@ -52,13 +45,8 @@ class NetworkRepository {
     /// - Parameters:
     ///   - imageUrl: URL to get image by
     ///   - completionHandler: Handler to get result asycronously
-    func imageByUrl(url imageUrl: String,
-                    completionHandler handler: @escaping (Result<Data, Error>) -> Void) {
-        request(imageUrl)
-            .validate()
-            .responseData { (response) in
-                handler(response.result)
-            }
+    func imageByUrl(url imageUrl: String) {
+        AF.request(imageUrl).validate().publishData()
     }
 
 }
