@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+
+if mint list | grep -q 'SwiftLint'; then
+    mint run swiftlint
+fi

@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+
+if mint list | grep -q 'SwiftFormat'; then
+    git diff --diff-filter=d --name-only | grep -e '\(.*\).swift$' | while read line; do
+        mint run swiftformat "../${line}";
+    done
+fi

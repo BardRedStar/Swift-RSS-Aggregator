@@ -8,6 +8,7 @@
 
 import Foundation
 import Alamofire
+import Combine
 
 /// A class for executing HTTP request to remote API
 class NetworkRepository {
@@ -22,26 +23,21 @@ class NetworkRepository {
     var params: [String: Any] = ["sources": "techcrunch"]
 
     /// Hardcoded headers
-    let headers: [String: String] = [
+    let headers: HTTPHeaders = HTTPHeaders([
         "Authorization": "Basic " + Constants.apiKey
-    ]
+    ])
 
     /// Creates a HTTP request to API to get last news
     ///
     /// - Parameters:
     ///   - source: Source ID of news source
     ///   - completionHandler: Completion handler to throw result
-    func loadNewsFromSource(source: String, completionHandler handler: @escaping (Result<Data>) -> Void) {
+    func loadNewsFromSource(source: String) {
 
         params["sources"] = source
         params["apiKey"] = Constants.apiKey
-        print(params)
         /// Request
-        Alamofire.request(Constants.apiUrl, parameters: params, headers: headers)
-            .validate()
-            .responseData { responseData -> Void in
-                handler(responseData.result)
-            }
+        AF.request(Constants.apiUrl, method: .get, parameters: params).validate().publishData()
     }
 
     /// Gets image by URL
@@ -49,14 +45,8 @@ class NetworkRepository {
     /// - Parameters:
     ///   - imageUrl: URL to get image by
     ///   - completionHandler: Handler to get result asycronously
-    func imageByUrl(url imageUrl: String,
-                    completionHandler handler: @escaping (Result<Data>) -> Void) {
-        Alamofire.request(imageUrl)
-            .validate()
-            .responseData { (response) in
-                handler(response.result)
-            }
-
+    func imageByUrl(url imageUrl: String) {
+        AF.request(imageUrl).validate().publishData()
     }
 
 }

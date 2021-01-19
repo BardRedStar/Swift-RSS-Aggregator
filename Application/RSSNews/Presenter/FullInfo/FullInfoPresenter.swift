@@ -11,7 +11,6 @@ import UIKit
 
 /// A protocol to implement full info screen presenter functions according to MVP architecture
 protocol FullInfoViewPresenter {
-
     /// - Parameter view: Settings view to bind
     init(view: FullInfoView)
 
@@ -25,7 +24,6 @@ protocol FullInfoViewPresenter {
 
 /// A class for implementing full info screen presenter functions
 class FullInfoPresenter: FullInfoViewPresenter {
-
     unowned let view: FullInfoView
 
     required init(view: FullInfoView) {
@@ -33,7 +31,6 @@ class FullInfoPresenter: FullInfoViewPresenter {
     }
 
     func newsImageByUrl(from imageUrl: String, completionHandler handler: @escaping (UIImage) -> Void) {
-
         let name = Cryptography.MD5(from: imageUrl)
         let cacheApiInstance = CacheRepository.instance
 
@@ -42,16 +39,16 @@ class FullInfoPresenter: FullInfoViewPresenter {
                 handler(data != nil ? UIImage(data: data!)! : UIImage(named: Constants.resourcesDefaultIconName)!)
             })
         } else {
-            NetworkRepository.instance.imageByUrl(url: imageUrl, completionHandler: { result in
-                switch result {
-                case .success(let value):
-                    cacheApiInstance.saveImageInCache(imageName: imageUrl, content: value)
-                    handler(UIImage(data: value)!)
-                case .failure(let error):
-                    self.view.showErrorMessage(message: error.localizedDescription)
-                }
-            })
+            NetworkRepository.instance.imageByUrl(url: imageUrl)
+//            , completionHandler: { result in
+//                switch result {
+//                case .success(let value):
+//                    cacheApiInstance.saveImageInCache(imageName: imageUrl, content: value)
+//                    handler(UIImage(data: value)!)
+//                case .failure(let error):
+//                    self.view.showErrorMessage(message: error.localizedDescription)
+//                }
+//            })
         }
     }
-
 }

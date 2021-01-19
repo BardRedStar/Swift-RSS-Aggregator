@@ -98,15 +98,16 @@ class MainPresenter: MainViewPresenter {
                 handler(data != nil ? UIImage(data: data!)! : UIImage(named: Constants.resourcesDefaultIconName)!)
             })
         } else {
-            NetworkRepository.instance.imageByUrl(url: imageUrl, completionHandler: { result in
-                switch result {
-                case .success(let value):
-                    cacheApiInstance.saveImageInCache(imageName: imageUrl, content: value)
-                    handler(UIImage(data: value)!)
-                case .failure(let error):
-                    self.view.showErrorMessage(message: error.localizedDescription)
-                }
-            })
+            NetworkRepository.instance.imageByUrl(url: imageUrl)
+//            { result in
+//                switch result {
+//                case .success(let value):
+//                    cacheApiInstance.saveImageInCache(imageName: imageUrl, content: value)
+//                    handler(UIImage(data: value)!)
+//                case .failure(let error):
+//                    self.view.showErrorMessage(message: error.localizedDescription)
+//                }
+//            })
         }
     }
 
@@ -127,24 +128,25 @@ class MainPresenter: MainViewPresenter {
         let sourceId = newsSourceId()
 
         print(sourceId)
-        NetworkRepository.instance.loadNewsFromSource(source: sourceId, completionHandler: { result in
-
-            switch result {
-            case .success(let value):
-                do {
-                    let newsEntity: NewsEntity = try JSONDecoder().decode(NewsEntity.self, from: value)
-
-                    self.newsArray = NewsMapper.mapEntityToItemArray(entity: newsEntity)
-                } catch {
-                    self.view.showErrorMessage(message: "Getting news error! Source is unavailable!")
-                }
-
-            case .failure(let error):
-                self.view.showErrorMessage(message: error.localizedDescription)
-            }
-
-            self.view.updateNewsData()
-        })
+        NetworkRepository.instance.loadNewsFromSource(source: sourceId)
+//        , completionHandler: { result in
+//
+//            switch result {
+//            case .success(let value):
+//                do {
+//                    let newsEntity: NewsEntity = try JSONDecoder().decode(NewsEntity.self, from: value)
+//
+//                    self.newsArray = NewsMapper.mapEntityToItemArray(entity: newsEntity)
+//                } catch {
+//                    self.view.showErrorMessage(message: "Getting news error! Source is unavailable!")
+//                }
+//
+//            case .failure(let error):
+//                self.view.showErrorMessage(message: error.localizedDescription)
+//            }
+//
+//            self.view.updateNewsData()
+//        })
     }
 
     /// Loads the sources list from property file

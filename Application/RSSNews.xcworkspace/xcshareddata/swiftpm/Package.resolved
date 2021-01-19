@@ -1,0 +1,43 @@
+{
+  "object": {
+    "pins": [
+      {
+        "package": "Alamofire",
+        "repositoryURL": "https://github.com/Alamofire/Alamofire",
+        "state": {
+          "branch": null,
+          "revision": "eaf6e622dd41b07b251d8f01752eab31bc811493",
+          "version": "5.4.1"
+        }
+      },
+      {
+        "package": "Kingfisher",
+        "repositoryURL": "https://github.com/onevcat/Kingfisher",
+        "state": {
+          "branch": null,
+          "revision": "0be276f6a7fd54af4c3eb03f2d12e12d8c8a1a1d",
+          "version": "6.0.1"
+        }
+      },
+      {
+        "package": "R.swift.Library",
+        "repositoryURL": "https://github.com/mac-cain13/R.swift.Library",
+        "state": {
+          "branch": null,
+          "revision": "5025163d8f60d3c56124c309db0246ba421aa8c6",
+          "version": "5.3.0"
+        }
+      },
+      {
+        "package": "Reusable",
+        "repositoryURL": "https://github.com/AliSoftware/Reusable",
+        "state": {
+          "branch": null,
+          "revision": "86cd17aa27e80d20bfe2ea57dd08958cf64664f4",
+          "version": "4.1.1"
+        }
+      }
+    ]
+  },
+  "version": 1
+}
