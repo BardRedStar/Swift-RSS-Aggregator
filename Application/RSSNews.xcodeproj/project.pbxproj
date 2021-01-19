@@ -44,7 +44,6 @@
 		CEF178BF220ED99A00332E84 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CEF178BE220ED99A00332E84 /* Assets.xcassets */; };
 		CEF178C2220ED99A00332E84 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CEF178C0220ED99A00332E84 /* LaunchScreen.storyboard */; };
 		CEF178CD220ED99A00332E84 /* DateTimeManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEF178CC220ED99A00332E84 /* DateTimeManagerTests.swift */; };
-		CEF178D8220ED99A00332E84 /* RSSNewsUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEF178D7220ED99A00332E84 /* RSSNewsUITests.swift */; };
 		CEF178EE220EF03500332E84 /* RSSTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEF178ED220EF03500332E84 /* RSSTableViewCell.swift */; };
 		CEF178F2220EF06000332E84 /* sources.plist in Resources */ = {isa = PBXBuildFile; fileRef = CEF178F1220EF06000332E84 /* sources.plist */; };
 /* End PBXBuildFile section */
@@ -118,8 +117,6 @@
 		CEF178CC220ED99A00332E84 /* DateTimeManagerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateTimeManagerTests.swift; sourceTree = "<group>"; };
 		CEF178CE220ED99A00332E84 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		CEF178D3220ED99A00332E84 /* RSSNewsUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = RSSNewsUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		CEF178D7220ED99A00332E84 /* RSSNewsUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RSSNewsUITests.swift; sourceTree = "<group>"; };
-		CEF178D9220ED99A00332E84 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		CEF178ED220EF03500332E84 /* RSSTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RSSTableViewCell.swift; sourceTree = "<group>"; };
 		CEF178F1220EF06000332E84 /* sources.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = sources.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -336,7 +333,6 @@
 			children = (
 				CEF178B3220ED99800332E84 /* RSSNews */,
 				CEF178CB220ED99A00332E84 /* RSSNewsTests */,
-				CEF178D6220ED99A00332E84 /* RSSNewsUITests */,
 				CEF178B2220ED99800332E84 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -378,15 +374,6 @@
 				CEF178CE220ED99A00332E84 /* Info.plist */,
 			);
 			path = RSSNewsTests;
-			sourceTree = "<group>";
-		};
-		CEF178D6220ED99A00332E84 /* RSSNewsUITests */ = {
-			isa = PBXGroup;
-			children = (
-				CEF178D7220ED99A00332E84 /* RSSNewsUITests.swift */,
-				CEF178D9220ED99A00332E84 /* Info.plist */,
-			);
-			path = RSSNewsUITests;
 			sourceTree = "<group>";
 		};
 		CEF178E5220ED9B100332E84 /* Resources */ = {
@@ -661,7 +648,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				CEF178D8220ED99A00332E84 /* RSSNewsUITests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
