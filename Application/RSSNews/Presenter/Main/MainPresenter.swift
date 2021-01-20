@@ -6,12 +6,12 @@
 //  Copyright © 2019 Saritasa Inc. All rights reserved.
 //
 
+import Combine
 import Foundation
 import UIKit
 
 /// A protocol to link presenter to main view
 protocol MainViewPresenter {
-
     /// - Parameter view: View to bind presenter to
     init(view: MainView)
 
@@ -52,11 +52,12 @@ protocol MainViewPresenter {
 
 /// A class for absorb business logic (according to MVP)
 class MainPresenter: MainViewPresenter {
-
     unowned let view: MainView
 
     private var newsArray: [NewsItem] = []
     private var filteredNewsArray: [NewsItem] = []
+
+    private var disposeBag = Set<AnyCancellable>()
 
     private var newsSourcesArray: [SourceItem]!
 
@@ -81,15 +82,13 @@ class MainPresenter: MainViewPresenter {
     }
 
     func updateFilteredNewsBySearchText(forSearchText searchText: String) {
-
-        filteredNewsArray = newsArray.filter({(item: NewsItem) -> Bool in
-            return item.title.lowercased().contains(searchText.lowercased()) || item.content.lowercased().contains(searchText.lowercased())
-        })
+        filteredNewsArray = newsArray.filter { (item: NewsItem) -> Bool in
+            item.title.lowercased().contains(searchText.lowercased()) || item.content.lowercased().contains(searchText.lowercased())
+        }
         view.updateNewsData()
     }
 
-    func newsImageByUrl(from imageUrl: String, completionHandler handler: @escaping (UIImage) -> Void) {
-
+    func newsImageByUrl(from imageUrl: String) -> AnyPublisher<UIImage, Never> {
         let name = Cryptography.MD5(from: imageUrl)
         let cacheApiInstance = CacheRepository.instance
 
@@ -98,33 +97,43 @@ class MainPresenter: MainViewPresenter {
                 handler(data != nil ? UIImage(data: data!)! : UIImage(named: Constants.resourcesDefaultIconName)!)
             })
         } else {
-            NetworkRepository.instance.imageByUrl(url: imageUrl)
-//            { result in
-//                switch result {
-//                case .success(let value):
-//                    cacheApiInstance.saveImageInCache(imageName: imageUrl, content: value)
-//                    handler(UIImage(data: value)!)
-//                case .failure(let error):
-//                    self.view.showErrorMessage(message: error.localizedDescription)
-//                }
-//            })
+            return getFromInternet()
+                .handleEvents(receiveSubscription: nil, receiveOutput: { data in
+                    cacheApiInstance.saveImageInCache(imageName: imageUrl, content: data)
+                })
+                .catch { error -> Empty<UIImage, Never> in
+                    self.view.showErrorMessage(message: error.localizedDescription)
+                    return Empty<UIImage, Never>()
+                }.eraseToAnyPublisher()
         }
     }
 
-    func newsSourceName() -> String {
+    func getFromInternet() -> AnyPublisher<UIImage, Error> {
+        return NetworkRepository.instance.imageByUrl(url: imageUrl)
+            .tryMap { response throws -> Data in
+                if let error = response.error {
+                    throw error
+                }
+                return response.data!
+            }
 
+            .map { data in
+                UIImage(data: data)!
+            }.eraseToAnyPublisher()
+    }
+
+    func newsSourceName() throws -> String {
         let currentSourceName = UserDefaultsRepository.instance.stringProperty(forKey:
             SettingsSection.SourceSection.source.rawValue.lowercased())
 
         let sourceItem = newsSourcesArray.first {
-            return $0.sourceName == currentSourceName
+            $0.sourceName == currentSourceName
         }
         return sourceItem != nil ? (sourceItem!.sourceName ?? "Home") : "Home"
     }
 
     /// Tries to load news from remote API
     private func loadNewsFromRemote() {
-
         let sourceId = newsSourceId()
 
         print(sourceId)
@@ -151,7 +160,7 @@ class MainPresenter: MainViewPresenter {
 
     /// Loads the sources list from property file
     private func loadSourcesList() {
-       newsSourcesArray = PropertyFileRepository.instance.sourcesFromPropertyList()
+        newsSourcesArray = PropertyFileRepository.instance.sourcesFromPropertyList()
     }
 
     /// Gets the identifier of current news source
@@ -162,10 +171,9 @@ class MainPresenter: MainViewPresenter {
             SettingsSection.SourceSection.source.rawValue.lowercased())
 
         let sourceItem = newsSourcesArray.first {
-            return $0.sourceName == currentSourceName
+            $0.sourceName == currentSourceName
         }
 
         return sourceItem != nil ? (sourceItem!.sourceId ?? "none") : "none"
     }
-
 }

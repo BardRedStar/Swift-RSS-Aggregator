@@ -11,12 +11,10 @@ import UIKit
 
 /// A class for operations with cache
 class CacheRepository {
-
     /// Singleton
     static let instance = CacheRepository()
 
-    private init() {
-    }
+    private init() {}
 
     /// Saves image in the cache folder with hashed name (using MD5)
     ///
@@ -24,7 +22,6 @@ class CacheRepository {
     ///   - imageName: imageName
     ///   - content: image content (data)
     func saveImageInCache(imageName: String, content: Data) {
-
         DispatchQueue.global(qos: .utility).async {
             /// Get URL of Caches/images folder
             let fileManager = FileManager.default
@@ -32,14 +29,13 @@ class CacheRepository {
             cacheURL.appendPathComponent(Constants.imageCacheFolderName, isDirectory: true)
 
             do {
-
                 /// Check directory existence
                 if !fileManager.fileExists(atPath: cacheURL.path) {
                     try fileManager.createDirectory(at: cacheURL, withIntermediateDirectories: false, attributes: nil)
                 }
 
                 /// Save file
-                cacheURL.appendPathComponent(Cryptography.MD5(from: imageName) + "." + Constants.imageFileExtension)
+                cacheURL.appendPathComponent(imageName + "." + Constants.imageFileExtension)
                 fileManager.createFile(atPath: cacheURL.path, contents: content, attributes: nil)
 
             } catch {
@@ -63,12 +59,12 @@ class CacheRepository {
     ///   - imageName: Image name
     ///   - handler: Handler for getting result asynchronously
     func imageFromCache(imageFileName imageName: String, completionHandler handler: @escaping (Data?) -> Void) {
-
         /// Asyncronously get the image from cache
         DispatchQueue.global(qos: .utility).async {
             let imageUrl = FileManagerHelper.cachedImageUrlByName(
                 fileName: imageName,
-                fileExtension: Constants.imageFileExtension)
+                fileExtension: Constants.imageFileExtension
+            )
 
             let imageContent = try? Data(contentsOf: imageUrl)
 
@@ -76,9 +72,7 @@ class CacheRepository {
             DispatchQueue.main.async {
                 handler(imageContent)
             }
-
         }
-
     }
 
     /// Asynchronously checks image files in cache and removes files which elapsed time greater than constant value (see Constants.swift)
@@ -96,14 +90,14 @@ class CacheRepository {
                 let imagesArray = try fileManager.contentsOfDirectory(
                     at: cacheURL,
                     includingPropertiesForKeys: [URLResourceKey.creationDateKey],
-                    options: .skipsHiddenFiles)
+                    options: .skipsHiddenFiles
+                )
 
                 for imageURL in imagesArray {
-
                     /// Get elapsed time interval
                     let resource = try imageURL.resourceValues(forKeys: [URLResourceKey.creationDateKey])
                     let interval = DateTimeManager.intervalBetweenDatesWithDayPrecision(calendar: calendar,
-                                                                                           from: resource.creationDate!, to: Date())
+                                                                                        from: resource.creationDate!, to: Date())
 
                     /// Delete image file if time limit exceeded
                     if interval.day! > Constants.imageCacheFileLifeDurationDays {
@@ -116,5 +110,4 @@ class CacheRepository {
             }
         }
     }
-
 }
